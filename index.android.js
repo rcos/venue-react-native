@@ -15,12 +15,10 @@ import {
   View
 } from 'react-native';
 
-import { Button, Toolbar, Card } from 'react-native-material-design';
-
 import routes from "./src/routes";
-import Signin from "./src/signin";
 
 class venueReactNative extends Component {
+
   renderScene(route, navigator){
     var Comp = routes[route.title].component;
     return <Comp navigator={navigator}/>;
@@ -32,14 +30,6 @@ class venueReactNative extends Component {
         style={styles.container}
         initialRoute={{title: 'signin'}}
         renderScene={this.renderScene}
-        navigationBar={
-          <Toolbar
-            onIconPress={() => {
-            }}
-            icon="arrow-back"
-            title="venue"
-          />
-        }
       />
     );
   }

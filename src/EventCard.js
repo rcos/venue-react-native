@@ -24,12 +24,14 @@ export default class EventCard extends Component{
   render(){
 
     const defaultImage = <Image style={styles.cardImage}
+      resizeMode={Image.resizeMode.cover}
       source={require("./img/default_event.jpg")}
     />;
     img = defaultImage;
 
     if (this.props.image){
       img = <Image style={styles.cardImage}
+        resizeMode={Image.resizeMode.cover}
         source={this.props.image}
       />;
     }
@@ -58,7 +60,7 @@ export default class EventCard extends Component{
                 }/>
                 <Button value="ATTEND" text="ATTEND"
                   onPress={() => this.props.navigator.push(
-                    {title: "attend",
+                    {title: "upload",
                     info: {
                       event: this.props.eventId
                     }})
@@ -87,9 +89,7 @@ const styles = StyleSheet.create({
   },
   cardImage: {
     left:0,
-    right:0,
-    resizeMode: "cover"
-    // alignSelf: 'center'
+    right:0
   },
   toolbar: {
     alignItems: 'center'

@@ -60,12 +60,11 @@ export default class Dashboard extends Component{
 
 
   render(){
-
     return (
       <View style={styles.container}>
         <Toolbar
           style={[styles.toolbar]}
-          title={"venue"}/>
+          title={"venue dashboard"}/>
           <ListView
             style={styles.cards}
             dataSource={this.state.dataSource}
@@ -91,12 +90,6 @@ const styles = StyleSheet.create({
   cardTitle: {
     color: "#fff",
     fontSize:24
-  },
-  cardImage: {
-    left:0,
-    right:0,
-    resizeMode: "cover"
-    // alignSelf: 'center'
   },
   toolbar: {
     alignItems: 'center'

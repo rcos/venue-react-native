@@ -18,7 +18,8 @@ export default class Signin extends Component{
   render(){
     return (
       <View style={styles.container}>
-        <Toolbar style={styles.toolbar} title="venue"/>
+        <Toolbar
+          title={"venue"}/>
         <Text style={styles.welcome}>
           login
         </Text>

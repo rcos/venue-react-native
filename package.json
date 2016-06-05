@@ -8,6 +8,7 @@
   "dependencies": {
     "react": "^15.1.0",
     "react-native": "^0.27.0-rc2",
+    "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-material-design": "^0.3.6",
     "react-native-material-design-styles": "^0.2.6",
     "react-native-navbar": "^1.5.0",

@@ -16,6 +16,10 @@ export default class Attend extends Component{
   render(){
     return (
       <View style={styles.container}>
+        <Toolbar
+          icon='arrow-back'
+          onIconPress={() => this.props.navigator.pop()}
+          title={"venue"}/>
         <Text> Attend View </Text>
       </View>
     );
