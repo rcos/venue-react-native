@@ -17,10 +17,13 @@ import {
 
 import routes from "./src/routes";
 
+var venue = require("venue-api-react");
+
 class venueReactNative extends Component {
 
   constructor(){
     super()
+    venue.setDomain("http://104.131.185.159:9000");
     BackAndroid.addEventListener('hardwareBackPress', () => {
       this.navigator.pop();
       return true;
