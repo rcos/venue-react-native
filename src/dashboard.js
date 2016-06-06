@@ -9,6 +9,8 @@ import {
   ListView
 } from 'react-native';
 
+var venue = require("venue-api-react");
+
 import { Button, Toolbar, Card } from 'react-native-material-design';
 
 import EventCard from "./EventCard";
@@ -24,22 +26,26 @@ export default class Dashboard extends Component{
   }
 
   componentWillMount(){
-    // Fetch events TODO
-    this.setState((state)=>{
-      state.events.push({
-        title: "Hello world",
-        description: "Test Event 1",
-        course: "ECSE 2400"
+    console.log("Fetching events");
+    venue.getMyEvents().then((events) => {
+      console.log(events);
+      this.setState((state) => {
+        state.events = events.map((e) => {
+          return {
+            title: e.info.title,
+            description: e.info.description,
+            course: e.courseNumber,
+            image: e.info.imageURLs[0]
+          };
+        });
+        console.log(state.events);
+        state.dataSource = state.dataSource.cloneWithRows(
+          state.events
+        );
+        debugger;
+        return state;
       });
-      state.events.push({
-        title: "Second Event",
-        description: "Test Event 2",
-        course: "CSCI 4100"
-      })
-      state.dataSource = state.dataSource.cloneWithRows(
-        this.state.events
-      );
-    })
+    });
   }
 
   renderEventCard(eventInfo){

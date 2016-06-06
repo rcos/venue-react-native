@@ -32,7 +32,7 @@ export default class EventCard extends Component{
     if (this.props.image){
       img = <Image style={styles.cardImage}
         resizeMode={Image.resizeMode.cover}
-        source={this.props.image}
+        source={{uri: this.props.image}}
       />;
     }
 
