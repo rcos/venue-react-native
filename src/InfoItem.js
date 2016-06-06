@@ -19,6 +19,7 @@ export default class InfoItem extends Component{
       height:80,
       paddingTop:10,
       paddingLeft:10,
+      left:0, right:0,
       flexDirection: 'row',
       borderBottomColor: "#ccc",
       borderBottomWidth: 1
@@ -30,11 +31,16 @@ export default class InfoItem extends Component{
     },
     itemDescription: {
       marginTop: 5,
-      fontSize: 18
+      fontSize: 18,
+      flex:1,
     },
     itemDescriptionCentered: {
+      flex:1,
       marginTop:15,
       fontSize: 18
+    },
+    smallText: {
+      fontSize: 14
     }
   });
 
@@ -49,8 +55,11 @@ export default class InfoItem extends Component{
             size={30}
             color={this.props.iconColor || "#ccc"}
             backgroundColor="#fff"/>
-          <Text
-            style={this.props.centerContent ? styles.itemDescriptionCentered : styles.itemDescription}>
+          <Text numberOfLines={2}
+            style={[
+              this.props.centerContent ? styles.itemDescriptionCentered : styles.itemDescription,
+              this.props.smallText && styles.smallText,
+            ]}>
             {this.props.children}
           </Text>
         </View>

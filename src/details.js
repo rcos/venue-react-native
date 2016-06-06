@@ -23,6 +23,12 @@ export default class Details extends Component{
     eventId: PropTypes.string
   };
 
+  formatStartEndTimes(times){
+    return times.map(
+      (t) => [dateFormat(t.start, "mm/dd h:MMtt") + " until " + dateFormat(t.end, "h:MMtt")] )
+      .reduce((s, t) => t + "\n" + s, "");
+  }
+
   render(){
 
     var evt = this.props.eventInfo;
@@ -51,7 +57,7 @@ export default class Details extends Component{
           </Image>
           <View style={styles.imageContentContainer}>
             <View style={styles.eventTitleContainer}>
-            <Text numberOfLines={2} style={styles.eventTitle}>
+            <Text numberOfLines={this.props.smallText? 3: 2} style={styles.eventTitle}>
               {evt.info.title}
             </Text>
             </View>
@@ -63,9 +69,8 @@ export default class Details extends Component{
                 <Text style={{marginBottom:10, fontWeight:'bold'}}> Instructor Note: {evt.additionalNotes} </Text>
               :null}
             </View>
-            <InfoItem icon="clock-o">
-              Start: {dateFormat(evt.info.times.start, "h:MMtt ddd mmmm dS")} {"\n"}
-              End : {dateFormat(evt.info.times.end, "h:MMtt ddd mmmm dS")}
+            <InfoItem smallText={true} icon="clock-o">
+              {this.formatStartEndTimes(evt.info.times)}
             </InfoItem>
             <InfoItem iconColor="#29B6F6" icon="location-arrow">
             {evt.info.location.address}
