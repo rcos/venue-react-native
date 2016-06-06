@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+var venue = require("venue-api-react");
+
 import {
   Text,
   View,
@@ -11,8 +13,21 @@ import { Button, Toolbar } from 'react-native-material-design';
 
 export default class Signin extends Component{
 
+  constructor(){
+    super();
+    this.state = {
+      username: "",
+      password: ""
+    };
+  }
+
   signInPress(){
-    this.props.navigator.push({title: "dashboard"});
+    // Check username and password
+    venue.authenticate(this.state.username, this.state.password).then(() => {
+      this.props.navigator.push({title: "dashboard"});
+    }).catch((err) => {
+      alert("Could not authenticate: " + err);
+    });
   }
 
   render(){
@@ -26,11 +41,15 @@ export default class Signin extends Component{
         <TextInput
           placeholder={"Username"}
           style={styles.textInput}
+          onChangeText={(username) => this.setState({username})}
+          value={this.state.username}
         />
         <TextInput
           placeholder={"Password"}
           secureTextEntry={true}
           style={styles.textInput}
+          onChangeText={(password) => this.setState({password})}
+          value={this.state.password}
         />
         <View style={styles.actionButtons}>
           <Button text="Sign up" value="Sign up" onPress={()=> console.log("Sign up")} />
