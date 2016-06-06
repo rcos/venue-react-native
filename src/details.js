@@ -53,7 +53,9 @@ export default class Details extends Component{
           <Image
             style={styles.eventImage}
             resizeMode={Image.resizeMode.cover}
-            source={require("./img/default_event.jpg")}>
+            source={evt.info.imageURLs.length > 0 ?
+              { uri: evt.info.imageURLs[0] }
+              :require("./img/default_event.jpg")}>
           </Image>
           <View style={styles.imageContentContainer}>
             <View style={styles.eventTitleContainer}>
