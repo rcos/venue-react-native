@@ -12,21 +12,32 @@ import {
   Text,
   TextInput,
   Navigator,
-  View
+  View,
+  BackAndroid
 } from 'react-native';
 
 import routes from "./src/routes";
 
 class venueReactNative extends Component {
 
+  constructor(){
+    super()
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+      this.navigator.pop();
+      return true;
+    });
+  }
+
   renderScene(route, navigator){
     var Comp = routes[route.title].component;
-    return <Comp navigator={navigator}/>;
+    console.log(route.info);
+    return <Comp {...route.info} navigator={navigator}/>;
   }
 
   render() {
     return (
       <Navigator
+        ref={(nav) => this.navigator = nav}
         style={styles.container}
         initialRoute={{title: 'signin'}}
         renderScene={this.renderScene}
@@ -34,12 +45,6 @@ class venueReactNative extends Component {
     );
   }
 }
-
-// <Navigator
-//   style={styles.container},
-//   renderScene={this.renderScene},
-//   configureScene={ () => { return Navigator.SceneConfigs.FloatFromRight;} }
-// />
 
 const styles = StyleSheet.create({
   container: {

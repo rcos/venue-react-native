@@ -26,23 +26,21 @@ export default class Dashboard extends Component{
   }
 
   componentWillMount(){
-    console.log("Fetching events");
     venue.getMyEvents().then((events) => {
-      console.log(events);
       this.setState((state) => {
         state.events = events.map((e) => {
           return {
             title: e.info.title,
             description: e.info.description,
             course: e.courseNumber,
-            image: e.info.imageURLs[0]
+            image: e.info.imageURLs[0],
+            eventId: e._id,
+            infoObject: e
           };
         });
-        console.log(state.events);
         state.dataSource = state.dataSource.cloneWithRows(
           state.events
         );
-        debugger;
         return state;
       });
     });
@@ -56,8 +54,9 @@ export default class Dashboard extends Component{
         title={eventInfo.title}
         description={eventInfo.description || ""}
         image={eventInfo.image}
-        eventId={eventInfo.id}
+        eventId={eventInfo.eventId}
         course={eventInfo.course}
+        eventInfo={eventInfo.infoObject}
         />
     );
 

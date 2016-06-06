@@ -55,14 +55,16 @@ export default class EventCard extends Component{
                 onPress={() => this.props.navigator.push(
                   {title: "details",
                   info: {
-                    event: this.props.eventId
+                    event: this.props.eventId,
+                    eventInfo: this.props.eventInfo
                   }})
                 }/>
                 <Button value="ATTEND" text="ATTEND"
                   onPress={() => this.props.navigator.push(
                     {title: "upload",
                     info: {
-                      event: this.props.eventId
+                      event: this.props.eventId,
+                      eventInfo: this.props.eventInfo
                     }})
                   }/>
             </Card.Actions>

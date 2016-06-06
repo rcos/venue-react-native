@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import {
   Text,
@@ -15,8 +15,18 @@ import InfoItem from './InfoItem';
 
 import { Button, Toolbar, Card } from 'react-native-material-design';
 
+var dateFormat = require('dateformat');
+
 export default class Details extends Component{
+
+  static propTypes = {
+    eventId: PropTypes.string
+  };
+
   render(){
+
+    var evt = this.props.eventInfo;
+
     return (
       <View style={styles.container}>
         <Toolbar
@@ -27,35 +37,38 @@ export default class Details extends Component{
             onPress: () => this.props.navigator.push({
               title: "upload",
               info: {
-                event: this.props.eventId
+                event: this.props.eventId,
+                eventInfo: this.props.eventInfo
               }
             })
           }]}
-          title={"Event Name"}/>
+          title={evt.info.title}/>
         <ScrollView>
           <Image
             style={styles.eventImage}
             resizeMode={Image.resizeMode.cover}
             source={require("./img/default_event.jpg")}>
-            <View style={styles.imageContentContainer}>
-              <View style={styles.eventTitleContainer}>
-                <Text style={styles.eventTitle}>
-                  Event Name
-                </Text>
-              </View>
-            </View>
           </Image>
+          <View style={styles.imageContentContainer}>
+            <View style={styles.eventTitleContainer}>
+            <Text numberOfLines={2} style={styles.eventTitle}>
+              {evt.info.title}
+            </Text>
+            </View>
+          </View>
           <View style={styles.infoBox}>
             <View style={styles.descriptionBox}>
-              <Text> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dignissim ullamcorper ligula vulputate maximus. Cras vestibulum risus ac feugiat ultricies. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc vitae vulputate arcu. Vestibulum ac varius dolor, et pharetra est. Fusce viverra pellentesque commodo. In eget fringilla felis. Etiam auctor et ante eu dictum. Nam vulputate ante nec sem euismod, et interdum lacus aliquet. Nulla sit amet metus laoreet, tempor arcu quis, elementum lorem. Ut tempus neque ac luctus finibus. Aenean orci erat, elementum sed ornare sit amet, tincidunt non sapien. Nulla semper nisl finibus risus ultricies, non vehicula sem volutpat. </Text>
-              <Text style={{marginBottom:10}}> Instructor Note: Get picture in front of performers </Text>
+              <Text style={{marginBottom:10}}> {evt.info.description} </Text>
+              {evt.additionalNotes ?
+                <Text style={{marginBottom:10, fontWeight:'bold'}}> Instructor Note: {evt.additionalNotes} </Text>
+              :null}
             </View>
-            <InfoItem centerContent={true} icon="clock-o">
-            Event on 2/4 (Tuesday)
+            <InfoItem icon="clock-o">
+              Start: {dateFormat(evt.info.times.start, "h:MMtt ddd mmmm dS")} {"\n"}
+              End : {dateFormat(evt.info.times.end, "h:MMtt ddd mmmm dS")}
             </InfoItem>
             <InfoItem iconColor="#29B6F6" icon="location-arrow">
-            86 Crawland Ave. {"\n"}
-            Mass Parkway, 12180
+            {evt.info.location.address}
             </InfoItem>
             <InfoItem
             iconColor="#aaa"
@@ -93,17 +106,22 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   imageContentContainer: {
-    flex:1,
+    position:'absolute',
+    left:0, right:0,
     flexDirection: "column",
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    height:240
   },
   eventTitleContainer:{
-    backgroundColor: "rgba(0,0,0,.25)"
+    backgroundColor: "rgba(0,0,0,.25)",
+    flexDirection: "row"
   },
   eventTitle: {
     color:"white",
     fontSize: 24,
-    marginBottom:20,marginLeft:20, marginTop:20
+    marginBottom:20, marginTop:20, marginLeft:20,
+    flex:1,
+    // left:20, right:20
   },
   infoBox: {
     marginTop:240 // event image space

@@ -80,11 +80,11 @@ export default class Upload extends Component{
 
     return (
       <View>
+        {pageContent}
         <Toolbar
         icon='arrow-back'
         onIconPress={() => this.props.navigator.pop()}
         title={"Upload to Event Name"}/>
-        {pageContent}
       </View>
     );
   }
