@@ -63,7 +63,7 @@ export default class EventCard extends Component{
                   onPress={() => this.props.navigator.push(
                     {title: "upload",
                     info: {
-                      event: this.props.eventId,
+                      eventId: this.props.eventId,
                       eventInfo: this.props.eventInfo
                     }})
                   }/>

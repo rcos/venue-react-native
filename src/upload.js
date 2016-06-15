@@ -15,6 +15,8 @@ import { Button, Toolbar, Card } from 'react-native-material-design';
 
 import Camera from 'react-native-camera';
 
+var venue = require("venue-api-react");
+
 export default class Upload extends Component{
 
   static propTypes = {
@@ -40,10 +42,18 @@ export default class Upload extends Component{
           state.mode = Upload.MODE.UPLOADING;
           return state;
         });
-        setTimeout(() => {
+
+        // Upload to site
+        venue.uploadToEvent({
+          title: "Test Title",
+          content: "Test Content",
+          eventId: this.props.eventId,
+          filePath: imagePath
+        }).then(() => {
           ToastAndroid.show("Upload Successful!", ToastAndroid.SHORT);
           this.props.navigator.pop();
-        }, 3000);
+        });
+        
       })
       .catch(err => {
         alert("Unable to take photo");
