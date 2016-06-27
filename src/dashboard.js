@@ -6,7 +6,8 @@ import {
   TextInput,
   StyleSheet,
   Image,
-  ListView
+  ListView,
+  Linking
 } from 'react-native';
 
 var venue = require("venue-api-react");
@@ -74,6 +75,13 @@ export default class Dashboard extends Component{
             style={styles.cards}
             dataSource={this.state.dataSource}
             renderRow={(info) => this.renderEventCard(info)}
+            renderFooter={()=>{
+              return (
+                <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
+                  Report Issues/Give Feedback
+                </Text>
+              );
+            }}
           />
       </View>
     );
@@ -117,6 +125,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     textAlign: 'center'
   },
-  password: {
+  feedbackForm:{
+    fontSize:14,
+    marginTop:20,
+    height:50,
+    color: '#2196F3',
+    alignSelf: 'center',
+    textAlign: 'center'
   }
 });
