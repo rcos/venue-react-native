@@ -6,7 +6,8 @@ import {
   Text,
   View,
   TextInput,
-  StyleSheet
+  StyleSheet,
+  Linking
 } from 'react-native';
 
 import { Button, Toolbar } from 'react-native-material-design';
@@ -52,7 +53,7 @@ export default class Signin extends Component{
           value={this.state.password}
         />
         <View style={styles.actionButtons}>
-          <Button text="Sign up" value="Sign up" onPress={()=> console.log("Sign up")} />
+          <Button text="Sign up" value="Sign up" onPress={()=> Linking.openURL(venue.getSignupURL())} />
           <Button text="Sign in" value="Sign in" onPress={()=> this.signInPress()} />
         </View>
       </View>
