@@ -20,18 +20,19 @@ var venue = require("venue-api-react");
 export default class Upload extends Component{
 
   static propTypes = {
-    eventId: PropTypes.string
+    eventId: PropTypes.string,
+    eventInfo: PropTypes.object
   }
 
   static MODE = {
     TAKING_PHOTO: 1,
-    // INPUT_FORM: 2,
+    INPUT_FORM: 2,
     UPLOADING:3
   }
 
   constructor(){
     super()
-    this.state = {mode: Upload.MODE.TAKING_PHOTO};
+    this.state = {mode: Upload.MODE.INPUT_FORM};
   }
 
   takePicture() {
@@ -45,15 +46,15 @@ export default class Upload extends Component{
 
         // Upload to site
         venue.uploadToEvent({
-          title: "Test Title",
-          content: "Test Content",
+          title: this.state.submissionTitle,
+          content: this.state.submissionContent,
           eventId: this.props.eventId,
           filePath: imagePath
         }).then(() => {
           ToastAndroid.show("Upload Successful!", ToastAndroid.SHORT);
           this.props.navigator.pop();
         });
-        
+
       })
       .catch(err => {
         alert("Unable to take photo");
@@ -62,7 +63,6 @@ export default class Upload extends Component{
   }
 
   render(){
-
     var pageContent;
     if (this.state.mode == Upload.MODE.TAKING_PHOTO){
       pageContent =  (
@@ -77,6 +77,26 @@ export default class Upload extends Component{
           <View style={styles.capture}>
             <Text style={styles.captureText} onPress={() => this.takePicture()}>[CAPTURE]</Text>
           </View>
+        </View>
+      );
+    }else if (this.state.mode == Upload.MODE.INPUT_FORM){
+      pageContent = (
+        <View style={{marginTop: 200}}>
+          <TextInput
+            placeholder={"Submission Title"}
+            style={styles.textInput}
+            onChangeText={(submissionTitle) => this.setState({submissionTitle})}
+            value={this.state.submissionTitle}
+          />
+          <TextInput
+            placeholder={"Submission Content"}
+            style={styles.textInput}
+            multiline={true}
+            numberOfLines={4}
+            onChangeText={(submissionContent) => this.setState({submissionContent})}
+            value={this.state.submissionContent}
+          />
+          <Button text="Take Photo and Submit" value="Take photo and submit" onPress={()=> this.setState({mode: Upload.MODE.TAKING_PHOTO})} />
         </View>
       );
     }else if (this.state.mode == Upload.MODE.UPLOADING){
@@ -94,7 +114,7 @@ export default class Upload extends Component{
         <Toolbar
         icon='arrow-back'
         onIconPress={() => this.props.navigator.pop()}
-        title={"Upload to Event Name"}/>
+        title={"Upload to " + this.props.eventInfo.info.title}/>
       </View>
     );
   }
@@ -126,6 +146,12 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 40,
     marginBottom:200
+  },
+  textInput: {
+    fontSize:18,
+    width:200,
+    alignSelf: 'center',
+    textAlign: 'center'
   },
   captureText: {
     marginTop: 30,

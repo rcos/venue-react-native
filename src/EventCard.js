@@ -17,7 +17,8 @@ export default class EventCard extends Component{
     eventId: PropTypes.string,
     description: PropTypes.string,
     image: PropTypes.string,
-    course: PropTypes.string
+    course: PropTypes.string,
+    eventInfo: PropTypes.object
   }
 
 
