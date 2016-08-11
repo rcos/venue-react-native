@@ -19,11 +19,6 @@ var venue = require("venue-api-react");
 
 export default class Upload extends Component{
 
-  static propTypes = {
-    eventId: PropTypes.string,
-    eventInfo: PropTypes.object
-  }
-
   static MODE = {
     TAKING_PHOTO: 1,
     INPUT_FORM: 2,
@@ -119,6 +114,11 @@ export default class Upload extends Component{
     );
   }
 }
+
+Upload.propTypes = {
+  eventId: PropTypes.string,
+  eventInfo: PropTypes.object
+};
 
 
 

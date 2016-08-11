@@ -1,3 +1,5 @@
+//@flow
+
 import React, { Component, PropTypes } from 'react';
 
 import {
@@ -16,16 +18,12 @@ import InfoItem from './InfoItem';
 import { Button, Toolbar, Card } from 'react-native-material-design';
 
 var dateFormat = require('dateformat');
-
+ 
 export default class Details extends Component{
 
-  static propTypes = {
-    eventId: PropTypes.string
-  };
-
-  formatStartEndTimes(times){
+  formatStartEndTimes(times: [{start: Date, end: Date}]){
     return times.map(
-      (t) => [dateFormat(t.start, "mm/dd h:MMtt") + " until " + dateFormat(t.end, "h:MMtt")] )
+      (t) => dateFormat(t.start, "mm/dd h:MMtt") + " until " + dateFormat(t.end, "h:MMtt"))
       .reduce((s, t) => t + "\n" + s, "");
   }
 

@@ -1,3 +1,5 @@
+//@flow
+
 import React, { Component } from 'react';
 
 import {
@@ -7,7 +9,8 @@ import {
   StyleSheet,
   Image,
   ListView,
-  Linking
+  Linking,
+  State
 } from 'react-native';
 
 var venue = require("venue-api-react");
@@ -17,6 +20,11 @@ import { Button, Toolbar, Card } from 'react-native-material-design';
 import EventCard from "./EventCard";
 
 export default class Dashboard extends Component{
+
+  state: {
+    events: [any],
+    dataSource: [any]
+  };
 
   constructor(){
     super();
@@ -47,7 +55,7 @@ export default class Dashboard extends Component{
     });
   }
 
-  renderEventCard(eventInfo){
+  renderEventCard(eventInfo: {title:string, description:string, image:string, eventId:string, course: any, infoObject: any}){
 
     return (
       <EventCard

@@ -1,3 +1,5 @@
+//@flow
+
 import React, { Component, PropTypes } from 'react';
 
 import venue from 'venue-api-react';
@@ -14,23 +16,14 @@ import { Button, Card } from 'react-native-material-design';
 
 export default class EventCard extends Component{
 
-  static propTypes = {
-    title: PropTypes.string,
-    eventId: PropTypes.string,
-    description: PropTypes.string,
-    image: PropTypes.string,
-    course: PropTypes.string,
-    eventInfo: PropTypes.object
-  }
-
-
   render(){
 
     const defaultImage = <Image style={styles.cardImage}
       resizeMode={Image.resizeMode.cover}
       source={require("./img/default_event.jpg")}
     />;
-    img = defaultImage;
+
+    var img:Image = defaultImage;
 
     if (this.props.image){
       img = <Image style={styles.cardImage}
@@ -77,7 +70,14 @@ export default class EventCard extends Component{
   }
 }
 
-
+EventCard.propTypes = {
+  title: PropTypes.string,
+  eventId: PropTypes.string,
+  description: PropTypes.string,
+  image: PropTypes.string,
+  course: PropTypes.string,
+  eventInfo: PropTypes.object
+};
 
 const styles = StyleSheet.create({
   container: {

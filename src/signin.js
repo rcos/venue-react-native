@@ -1,3 +1,5 @@
+//@flow
+
 import React, { Component } from 'react';
 
 var venue = require("venue-api-react");
@@ -13,6 +15,11 @@ import {
 import { Button, Toolbar } from 'react-native-material-design';
 
 export default class Signin extends Component{
+
+  state: {
+    username: string,
+    password: string
+  };
 
   constructor(){
     super();
