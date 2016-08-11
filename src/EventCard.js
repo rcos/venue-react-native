@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
+import venue from 'venue-api-react';
+
 import {
   Text,
   View,
@@ -33,8 +35,9 @@ export default class EventCard extends Component{
     if (this.props.image){
       img = <Image style={styles.cardImage}
         resizeMode={Image.resizeMode.cover}
-        source={{uri: this.props.image}}
+        source={{uri: venue.getDomain() + this.props.image}}
       />;
+      console.log(this.props.image);
     }
 
     return (
