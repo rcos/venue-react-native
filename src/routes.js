@@ -3,6 +3,7 @@ import Dashboard from './dashboard';
 import Details from './details';
 import Attend from './attend';
 import Upload from './upload';
+import CASLogin from './CASLogin';
 
 export default {
   signin: {
@@ -24,5 +25,9 @@ export default {
   upload: {
     title: "upload",
     component: Upload
+  },
+  casLogin: {
+    title: "casLogin",
+    component: CASLogin
   }
 }

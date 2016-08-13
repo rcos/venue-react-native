@@ -38,6 +38,10 @@ export default class Signin extends Component{
     });
   }
 
+  loginWithCAS(){
+    this.props.navigator.push({title: "casLogin"});
+  }
+
   render(){
     return (
       <View style={styles.container}>
@@ -60,6 +64,7 @@ export default class Signin extends Component{
           value={this.state.password}
         />
         <View style={styles.actionButtons}>
+          <Button text="CAS Login" value="CAS Login" onPress={()=> this.loginWithCAS()} />
           <Button text="Sign up" value="Sign up" onPress={()=> Linking.openURL(venue.getSignupURL())} />
           <Button text="Sign in" value="Sign in" onPress={()=> this.signInPress()} />
         </View>
