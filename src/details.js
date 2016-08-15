@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import venue from 'venue-api-react';
 
 import {
+  Linking,
   Text,
   View,
   ScrollView,
@@ -73,7 +74,10 @@ export default class Details extends Component{
             <InfoItem smallText={true} icon="clock-o">
               {this.formatStartEndTimes(evt.info.times)}
             </InfoItem>
-            <InfoItem iconColor="#29B6F6" icon="location-arrow">
+            <InfoItem iconColor="#29B6F6" icon="location-arrow" onPress={()=>{
+              let url = 'geo:'+ evt.info.location.geo.coordinates[1].toString() + ','+ evt.info.location.geo.coordinates[0].toString();
+              Linking.openURL(url);
+            }}>
             {evt.info.location.address}
             </InfoItem>
             <InfoItem
