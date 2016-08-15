@@ -57,7 +57,6 @@ export default class Upload extends Component{
   getLocation(accuracy:bool) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(position)
         this.setState(state => state.position = position);
       },
       (error) => {
