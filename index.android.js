@@ -23,8 +23,8 @@ class venueReactNative extends Component {
 
   constructor(){
     super()
-    // venue.setDomain("http://venue.cs.rpi.edu:9000");
-    venue.setDomain("http://192.168.0.23:9000");
+    venue.setDomain("https://venue.cs.rpi.edu");
+    // venue.setDomain("http://192.168.0.23:9000");
     BackAndroid.addEventListener('hardwareBackPress', () => {
       this.navigator.pop();
       return true;
