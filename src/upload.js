@@ -1,3 +1,4 @@
+//@flow
 import React, { Component, PropTypes } from 'react';
 
 import {
@@ -25,9 +26,50 @@ export default class Upload extends Component{
     UPLOADING:3
   }
 
+  state: {
+    mode:any,
+    position: any,
+    submissionTitle: string,
+    submissionContent: string
+  };
+
+  camera:any;
+  watchID:any;
+
   constructor(){
     super()
-    this.state = {mode: Upload.MODE.INPUT_FORM};
+    this.state = {mode: Upload.MODE.INPUT_FORM,
+      position: null,
+      submissionTitle: "",
+      submissionContent: ""
+    };
+    this.camera = undefined;
+    this.watchID = null;
+  }
+
+  componentDidMount() {
+    this.getLocation(true);
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+      this.setState(state => state.position = position);
+    });
+  }
+
+  getLocation(accuracy:bool) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log(position)
+        this.setState(state => state.position = position);
+      },
+      (error) => {
+          if(accuracy) this.getLocation(false)
+          else alert("Location could not be found")
+      },
+      {enableHighAccuracy: accuracy, timeout: 10000, maximumAge: 1000}
+    );
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
   }
 
   takePicture() {
@@ -44,7 +86,8 @@ export default class Upload extends Component{
           title: this.state.submissionTitle,
           content: this.state.submissionContent,
           eventId: this.props.eventId,
-          filePath: imagePath
+          filePath: imagePath,
+          coordinates: [ this.state.position.coords.longitude, this.state.position.coords.latitude ]
         }).then(() => {
           ToastAndroid.show("Upload Successful!", ToastAndroid.SHORT);
           this.props.navigator.pop();
@@ -119,7 +162,6 @@ Upload.propTypes = {
   eventId: PropTypes.string,
   eventInfo: PropTypes.object
 };
-
 
 
 const styles = StyleSheet.create({
