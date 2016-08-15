@@ -74,23 +74,41 @@ export default class Dashboard extends Component{
 
 
   render(){
+    let displayDashboard;
+    if(this.state.events.length > 0) {
+      displayDashboard = <ListView
+        style={styles.cards}
+        dataSource={this.state.dataSource}
+        renderRow={(info) => this.renderEventCard(info)}
+        renderFooter={()=>{
+          return (
+            <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
+              Report Issues/Give Feedback
+            </Text>
+          );
+        }}
+      />;
+    }
+    else {
+      displayDashboard = <View style={styles.eventsHelp}>
+        <Text style={styles.eventsHelpMessage}>
+          There are no events on the venue
+        </Text>
+        <Text style={styles.mobileSiteMessage} onPress={()=> Linking.openURL(venue.getDomain())}>
+          Check out the mobile site to enroll in courses
+        </Text>
+        <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
+          Report Issues/Give Feedback
+        </Text>
+      </View>;
+    }
+
     return (
       <View style={styles.container}>
         <Toolbar
           style={[styles.toolbar]}
           title={"venue dashboard"}/>
-          <ListView
-            style={styles.cards}
-            dataSource={this.state.dataSource}
-            renderRow={(info) => this.renderEventCard(info)}
-            renderFooter={()=>{
-              return (
-                <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
-                  Report Issues/Give Feedback
-                </Text>
-              );
-            }}
-          />
+          {displayDashboard}
       </View>
     );
   }
@@ -139,6 +157,26 @@ const styles = StyleSheet.create({
     height:50,
     color: '#2196F3',
     alignSelf: 'center',
+    textAlign: 'center'
+  },
+  eventsHelp:{
+    flex:1,
+    marginTop: 60,
+    flexDirection: 'column'
+  },
+  eventsHelpMessage:{
+    fontSize:18,
+    width:400,
+    marginTop:100,
+    marginBottom:50,
+    alignSelf: 'center',
+    textAlign: 'center'
+  },
+  mobileSiteMessage: {
+    // fontSize:14,
+    // marginTop:20,
+    color: '#2196F3',
+    // alignSelf: 'center',
     textAlign: 'center'
   }
 });
