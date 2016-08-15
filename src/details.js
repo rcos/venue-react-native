@@ -1,6 +1,7 @@
 //@flow
 
 import React, { Component, PropTypes } from 'react';
+import venue from 'venue-api-react';
 
 import {
   Text,
@@ -18,7 +19,7 @@ import InfoItem from './InfoItem';
 import { Button, Toolbar, Card } from 'react-native-material-design';
 
 var dateFormat = require('dateformat');
- 
+
 export default class Details extends Component{
 
   formatStartEndTimes(times: [{start: Date, end: Date}]){
@@ -52,7 +53,7 @@ export default class Details extends Component{
             style={styles.eventImage}
             resizeMode={Image.resizeMode.cover}
             source={evt.info.imageURLs.length > 0 ?
-              { uri: evt.info.imageURLs[0] }
+              { uri: venue.getDomain() + evt.info.imageURLs[0] }
               :require("./img/default_event.jpg")}>
           </Image>
           <View style={styles.imageContentContainer}>
