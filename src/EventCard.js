@@ -9,6 +9,7 @@ import {
   View,
   TextInput,
   StyleSheet,
+  Linking,
   Image
 } from 'react-native';
 
@@ -47,7 +48,7 @@ export default class EventCard extends Component{
             </Card.Body>
             <Card.Actions position="left">
                 <Button value={this.props.course} text={this.props.course}
-                  onPress={() => alert("No information for this course is available at this time.")}/>
+                  onPress={() => Linking.openURL(venue.getDomain() + "/courses/" + this.props.eventInfo.courseId)}/>
                 <Button value="DETAILS" text="DETAILS"
                 onPress={() => this.props.navigator.push(
                   {title: "details",
