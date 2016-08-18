@@ -88,7 +88,8 @@ export default class Details extends Component{
               this.props.navigator.push({
                 title: "upload",
                 info: {
-                  event: this.props.eventId
+                  event: this.props.eventId,
+                  eventInfo: this.props.eventInfo
                 }
               });
             }}>
