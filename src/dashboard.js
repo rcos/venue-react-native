@@ -71,7 +71,10 @@ export default class Dashboard extends Component{
 
   }
 
-
+  logout(){
+    venue.logout();
+    this.props.navigator.push({title: "login"});
+  }
 
   render(){
     let displayDashboard;
@@ -82,9 +85,14 @@ export default class Dashboard extends Component{
         renderRow={(info) => this.renderEventCard(info)}
         renderFooter={()=>{
           return (
-            <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
-              Report Issues/Give Feedback
-            </Text>
+            <View>
+              <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
+                Report Issues/Give Feedback
+              </Text>
+              <Text onPress={()=> this.logout()}>
+                Logout
+              </Text>
+            </View>
           );
         }}
       />;
@@ -99,6 +107,9 @@ export default class Dashboard extends Component{
         </Text>
         <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
           Report Issues/Give Feedback
+        </Text>
+        <Text style={styles.logout} onPress={()=> this.logout()}>
+          Logout
         </Text>
       </View>;
     }
