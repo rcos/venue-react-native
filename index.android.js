@@ -18,12 +18,14 @@ import {
 import routes from "./src/routes";
 import config from "./src/config"
 var venue = require("venue-api-react");
+// var venue = require("./node_modules/venue-api-react");
 
 class venueReactNative extends Component {
 
   constructor(){
     super()
-    venue.setDomain("https://venue.cs.rpi.edu");
+    console.log('Setting domain');
+    venue.setDomain("http://venue.cs.rpi.edu");
     // venue.setDomain("http://192.168.0.23:9000");
     BackAndroid.addEventListener('hardwareBackPress', () => {
       this.navigator.pop();
@@ -39,6 +41,7 @@ class venueReactNative extends Component {
 
   render() {
     let initialState;
+    console.log("rendering this");
     if(config.cas_login_only){
       initialState = {title: "casLogin"};
     }else{

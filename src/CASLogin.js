@@ -26,7 +26,7 @@ export default class Signin extends Component{
     };
   }
 
-  whenNavigationStateChanges(navState: any){
+  whenNavigationStateChanges = async (navState: any) => {
     var navigator = this.props.navigator;
     fetch(navState.url, {
       method: 'GET'
@@ -41,10 +41,19 @@ export default class Signin extends Component{
           this.setState({attemptingAuth:true});
         }
       }
-    }).catch((err,arg2) => {
-      // Ignore all the errors- they come from bad URLS during the
-      // navigation state change
-    });
+    } catch(error) {
+      // Handle error
+      throw error;
+    }
+  }
+
+  setLoginToken = async (token) => {
+    try {
+      await AsyncStorage.setItem('@venue:token', token);
+    } catch (error) {
+      throw error;
+      // Error saving data
+    }
   }
 
   render(){

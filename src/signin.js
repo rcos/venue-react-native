@@ -9,7 +9,8 @@ import {
   View,
   TextInput,
   StyleSheet,
-  Linking
+  Linking,
+  AsyncStorage
 } from 'react-native';
 
 import { Button, Toolbar } from 'react-native-material-design';

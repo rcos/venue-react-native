@@ -1,6 +1,6 @@
 var config = {
 
-  cas_login_only: true
+  cas_login_only: false
 
 };
 
