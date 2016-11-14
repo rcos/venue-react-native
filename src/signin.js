@@ -32,7 +32,7 @@ export default class Signin extends Component{
   signInPress(){
     // Check username and password
     venue.authenticate(this.state.username, this.state.password).then(() => {
-      this.props.navigator.push({title: "dashboard"});
+      this.props.navigator.resetTo({title: "dashboard"});
     }).catch((err) => {
       alert("Could not authenticate: " + err);
     });

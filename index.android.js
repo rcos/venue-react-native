@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 
 import routes from "./src/routes";
-
+import config from "./src/config"
 var venue = require("venue-api-react");
 
 class venueReactNative extends Component {
@@ -38,11 +38,17 @@ class venueReactNative extends Component {
   }
 
   render() {
+    let initialState;
+    if(config.cas_login_only){
+      initialState = {title: "casLogin"};
+    }else{
+      initialState = {title: 'signin'};
+    }
     return (
       <Navigator
         ref={(nav) => this.navigator = nav}
         style={styles.container}
-        initialRoute={{title: 'signin'}}
+        initialRoute={initialState}
         renderScene={this.renderScene}
       />
     );

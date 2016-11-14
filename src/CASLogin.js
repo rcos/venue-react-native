@@ -36,7 +36,7 @@ export default class Signin extends Component{
       if (json['token']){
         if (!this.state.attemptingAuth){
           venue.authenticateWithToken(json['token']).then(() => {
-              navigator.push({title: "dashboard"});
+            navigator.resetTo({title: "dashboard"});
           });
           this.setState({attemptingAuth:true});
         }
