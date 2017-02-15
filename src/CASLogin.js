@@ -8,7 +8,8 @@ import {
   Text,
   View,
   StyleSheet,
-  WebView
+  WebView,
+  ActivityIndicator
 } from 'react-native';
 
 import { Button, Toolbar } from 'react-native-material-design';
@@ -52,7 +53,6 @@ export default class Signin extends Component{
   }
 
   render(){
-
         return (
           <View style={styles.container}>
             <Toolbar
@@ -64,13 +64,13 @@ export default class Signin extends Component{
               >
               CAS Login Page
             </WebView>
+            <ActivityIndicator
+              style={ (this.state.attemptingAuth) ? styles.loadingScreen : styles.loadingScreenHidden }
+              size="large"/>
           </View>
         );
     }
 }
-
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -83,6 +83,15 @@ const styles = StyleSheet.create({
   },
   hidden:{
       flex: 0
+  },
+  loadingScreenHidden:{
+      flex: 0
+  },
+  loadingScreen:{
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 8
   },
   text: {
       flex: 1,
