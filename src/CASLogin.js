@@ -30,9 +30,7 @@ export default class Signin extends Component{
 
   whenNavigationStateChanges(navState: any){
     var navigator = this.props.navigator;
-    if (navState.url != venue.getDomain() + "/auth/cas?mobile=true"){
-        this.setState({attemptingAuth:true});
-    }
+    this.setState({attemptingAuth: true});
     fetch(navState.url, {
       method: 'GET'
     }).then((response) => {
@@ -41,9 +39,9 @@ export default class Signin extends Component{
       if (json['token']){
         if (this.state.attemptingAuth){
             venue.authenticateWithToken(json['token']).then(() => {
+            console.log("attempting to reset");
             navigator.resetTo({title: "dashboard"});
           });
-
         }
       }
     }).catch((err,arg2) => {
@@ -79,19 +77,25 @@ const styles = StyleSheet.create({
   },
   webview: {
     marginTop:55,
-    flex: 1
+    flex: 1,
   },
   hidden:{
-      flex: 0
+      flex: 0,
+      width: 0,
+      height: 0,
+      opacity: 0
   },
   loadingScreenHidden:{
-      flex: 0
+      flex: 0,
+      width: 0,
+      height: 0,
+      opacity: 0
   },
   loadingScreen:{
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      padding: 8
+      padding: 8,
   },
   text: {
       flex: 1,
