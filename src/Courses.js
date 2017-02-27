@@ -34,15 +34,28 @@ export default class Courses extends Component{
 
   componentWillMount(){
     venue.getMyCourses().then((courses) => {
-        console.log(courses);
-        // console.log(courses);
+        this.setState((state) => {
+        state.courses = courses.map((c) => {
+          return {
+            title: c.name,
+            description: c.description,
+            course: c.courseNumber,
+            image: c.imageURLs[0],
+            courseId: c._id,
+            infoObject: c
+          };
+        });
+        state.dataSource = state.dataSource.cloneWithRows(
+          state.courses
+        );
+        return state;
+      });
     });
   }
 
   render(){
     let displayCourses;
-
-    if (false){
+    if (this.state.courses.length > 0){
         displayCourses = <Text></Text>;
     }
     else {
