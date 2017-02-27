@@ -75,7 +75,7 @@ export default class Dashboard extends Component{
 
   render(){
     let displayDashboard;
-    if(this.state.events.length > 0) {
+    if(this.state.events.length < 0) {
       displayDashboard = <ListView
         style={styles.cards}
         dataSource={this.state.dataSource}
@@ -94,7 +94,8 @@ export default class Dashboard extends Component{
         <Text style={styles.eventsHelpMessage}>
           There are no events on the venue
         </Text>
-        <Text style={styles.mobileSiteMessage} onPress={()=> Linking.openURL(venue.getDomain())}>
+        <Text style={styles.mobileSiteMessage} onPress={()=> this.props.navigator.push(
+          {title: "courses"})}>
           Check out the mobile site to enroll in courses
         </Text>
         <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
