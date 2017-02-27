@@ -15,7 +15,7 @@ var venue = require("venue-api-react");
 
 import { Button, Toolbar, Card } from 'react-native-material-design';
 
-//import Course from "./CourseCard";
+import CourseCard from "./CourseCard";
 
 export default class Courses extends Component{
 
@@ -53,10 +53,36 @@ export default class Courses extends Component{
     });
   }
 
+  renderCourseCard(courseInfo: {title:string, description:string, image:string, courseId:string, course: any, infoObject: any}){
+
+    return (
+      <CourseCard
+        navigator={this.props.navigator}
+        title={courseInfo.title}
+        description={courseInfo.description || ""}
+        image={courseInfo.image}
+        courseId={courseInfo.courseId}
+        courseInfo={courseInfo.infoObject}
+        />
+    );
+
+  }
+
   render(){
     let displayCourses;
     if (this.state.courses.length > 0){
-        displayCourses = <Text></Text>;
+        displayCourses = <ListView
+          style={styles.cards}
+          dataSource={this.state.dataSource}
+          renderRow={(info) => this.renderCourseCard(info)}
+          renderFooter={()=>{
+            return (
+              <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
+                Report Issues/Give Feedback
+              </Text>
+            );
+          }}
+        />;
     }
     else {
       displayCourses = <View style={styles.coursesHelp}>
