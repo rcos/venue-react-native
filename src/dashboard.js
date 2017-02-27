@@ -75,7 +75,7 @@ export default class Dashboard extends Component{
 
   render(){
     let displayDashboard;
-    if(this.state.events.length < 0) {
+    if(this.state.events.length > 0) {
       displayDashboard = <ListView
         style={styles.cards}
         dataSource={this.state.dataSource}
@@ -96,7 +96,7 @@ export default class Dashboard extends Component{
         </Text>
         <Text style={styles.mobileSiteMessage} onPress={()=> this.props.navigator.push(
           {title: "courses"})}>
-          Check out the mobile site to enroll in courses
+          Check out the Courses page to enroll in courses
         </Text>
         <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
           Report Issues/Give Feedback
@@ -108,6 +108,12 @@ export default class Dashboard extends Component{
       <View style={styles.container}>
         <Toolbar
           style={[styles.toolbar]}
+          actions={[{
+            icon: "library-books",
+            onPress: () => this.props.navigator.push({
+              title: "courses",
+            })
+          }]}
           title={"venue dashboard"}/>
           {displayDashboard}
       </View>
