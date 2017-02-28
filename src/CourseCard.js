@@ -46,7 +46,15 @@ export default class CourseCard extends Component{
             <Card.Body>
                 <Text>{this.props.description}</Text>
             </Card.Body>
-            <Card.Actions position="left">
+            <Card.Actions position="center">
+            <Button value="DETAILS" text="DETAILS"
+              onPress={() => this.props.navigator.push(
+                {title: "coursedetails",
+                info: {
+                  courseId: this.props.courseId,
+                  courseInfo: this.props.courseInfo
+                }})
+              }/>
             </Card.Actions>
         </Card>
     );
