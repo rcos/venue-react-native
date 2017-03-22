@@ -6,6 +6,7 @@ import Upload from './upload';
 import CASLogin from './CASLogin';
 import Courses from './Courses';
 import CourseDetails from './CourseDetails';
+import Submissions from './Submissions';
 
 export default {
   signin: {
@@ -39,5 +40,9 @@ export default {
   coursedetails: {
       title: "coursedetails",
       component: CourseDetails
+  },
+  submissions: {
+      title: "submissions",
+      component: Submissions
   }
 }
