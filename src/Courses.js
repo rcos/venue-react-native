@@ -22,7 +22,8 @@ export default class Courses extends Component{
 
   state: {
     courses: [any],
-    dataSource: [any]
+    dataSource: [any],
+    allCourses: bool,
   };
 
   constructor(){
@@ -30,52 +31,69 @@ export default class Courses extends Component{
     var ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1.title !== r2.title
     });
-    this.state = {courses: [], dataSource: ds.cloneWithRows([],[])};
+    this.state = {courses: [], dataSource: ds.cloneWithRows([],[]), allCourses: false};
   }
-
+  componentDidUpdate(){
+      if (!this.state.allCourses){
+          venue.getMyCourses().then((courses) => {
+              this.setState((state) => {
+              state.courses = courses.map((c) => {
+                return {
+                  title: c.name,
+                  description: c.description,
+                  course: c.courseNumber,
+                  image: c.imageURLs[0],
+                  courseId: c._id,
+                  infoObject: c
+                };
+              });
+              state.dataSource = state.dataSource.cloneWithRows(
+                state.courses
+              );
+              return state;
+            });
+          });
+      }
+      else {
+          venue.getCourses().then((courses) => {
+              this.setState((state) => {
+              state.courses = courses.map((c) => {
+                return {
+                  title: c.name,
+                  description: c.description,
+                  course: c.courseNumber,
+                  image: c.imageURLs[0],
+                  courseId: c._id,
+                  infoObject: c
+                };
+              });
+              state.dataSource = state.dataSource.cloneWithRows(
+                state.courses
+              );
+              return state;
+            });
+          });
+      }
+  }
   componentDidMount(){
-    var scenes = this.props.navigator.getCurrentRoutes();
-    if (scenes.length == 2 && scenes[0]["title"] == "dashboard"){
-        venue.getMyCourses().then((courses) => {
-            this.setState((state) => {
-            state.courses = courses.map((c) => {
-              return {
-                title: c.name,
-                description: c.description,
-                course: c.courseNumber,
-                image: c.imageURLs[0],
-                courseId: c._id,
-                infoObject: c
-              };
-            });
-            state.dataSource = state.dataSource.cloneWithRows(
-              state.courses
-            );
-            return state;
+      venue.getMyCourses().then((courses) => {
+          this.setState((state) => {
+          state.courses = courses.map((c) => {
+            return {
+              title: c.name,
+              description: c.description,
+              course: c.courseNumber,
+              image: c.imageURLs[0],
+              courseId: c._id,
+              infoObject: c
+            };
           });
+          state.dataSource = state.dataSource.cloneWithRows(
+            state.courses
+          );
+          return state;
         });
-    }
-    else {
-        venue.getCourses().then((courses) => {
-            this.setState((state) => {
-            state.courses = courses.map((c) => {
-              return {
-                title: c.name,
-                description: c.description,
-                course: c.courseNumber,
-                image: c.imageURLs[0],
-                courseId: c._id,
-                infoObject: c
-              };
-            });
-            state.dataSource = state.dataSource.cloneWithRows(
-              state.courses
-            );
-            return state;
-          });
-        });
-    }
-
+      });
   }
 
   renderCourseCard(courseInfo: {title:string, description:string, image:string, courseId:string, course: any, infoObject: any}){
@@ -122,31 +140,37 @@ export default class Courses extends Component{
 
     return (
       <View style={styles.container}>
-      <View style={styles.navbar}>
-          <View style={styles.navView}>
-              <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                title: "submissions",
-              })}>
-                  <Text style={styles.button}>SUBMISSIONS</Text>
-              </TouchableHighlight>
-          </View>
+          <View style={styles.navbar}>
+              <View style={styles.navView}>
+                  <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                    title: "submissions",
+                  })}>
+                      <Text style={styles.button}>SUBMISSIONS</Text>
+                  </TouchableHighlight>
+              </View>
 
-          <View style={styles.navView}>
-              <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                title: "dashboard",
-              })}>
-                  <Text style={styles.button}>EVENTS</Text>
-              </TouchableHighlight>
-          </View>
+              <View style={styles.navView}>
+                  <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                    title: "dashboard",
+                  })}>
+                      <Text style={styles.button}>EVENTS</Text>
+                  </TouchableHighlight>
+              </View>
 
-          <View style={styles.navViewSelected}>
-              <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                title: "courses",
-              })}>
-                  <Text style={styles.buttonSelected}>COURSES</Text>
-              </TouchableHighlight>
+              <View style={styles.navViewSelected}>
+                  <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                    title: "courses",
+                  })}>
+                      <Text style={styles.buttonSelected}>COURSES</Text>
+                  </TouchableHighlight>
+              </View>
           </View>
-      </View>
+          <View>
+              <Button
+              text={(this.state.allCourses) ? "All Courses" : "My Courses"}
+              onPress={() => this.setState({allCourses: !this.state.allCourses})}
+              />
+          </View>
           {displayCourses}
       </View>
     );
@@ -156,7 +180,8 @@ export default class Courses extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    flexDirection: 'column'
   },
   cards: {
     flex:1,
@@ -179,7 +204,8 @@ const styles = StyleSheet.create({
       borderBottomColor: '#fff',
       borderBottomWidth: 2,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      elevation: 1,
   },
   button: {
       flex: 1,
