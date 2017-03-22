@@ -8,7 +8,8 @@ import {
   Image,
   ListView,
   Linking,
-  State
+  State,
+  TouchableHighlight
 } from 'react-native';
 
 var venue = require("venue-api-react");
@@ -101,11 +102,36 @@ export default class Submissions extends Component{
 
     return (
       <View style={styles.container}>
-        <Toolbar
+      <View style={styles.navbar}>
+          <View style={styles.navViewSelected}>
+              <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                title: "submissions",
+              })}>
+                  <Text style={styles.buttonSelected}>SUBMISSIONS</Text>
+              </TouchableHighlight>
+          </View>
+
+          <View style={styles.navView}>
+              <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                title: "dashboard",
+              })}>
+                  <Text style={styles.button}>DASHBOARD</Text>
+              </TouchableHighlight>
+          </View>
+
+          <View style={styles.navView}>
+              <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                title: "courses",
+              })}>
+                  <Text style={styles.button}>COURSES</Text>
+              </TouchableHighlight>
+          </View>
+      </View>
+        {/* <Toolbar
           icon='arrow-back'
           onIconPress={() => this.props.navigator.pop()}
           style={[styles.toolbar]}
-          title={"venue submissions"}/>
+          title={"venue submissions"}/> */}
           {displayCourses}
       </View>
     );
@@ -119,7 +145,7 @@ const styles = StyleSheet.create({
   },
   cards: {
     flex:1,
-    marginTop: 60,
+    marginTop: 12,
     flexDirection: 'column'
   },
   cardTitle: {
@@ -128,6 +154,43 @@ const styles = StyleSheet.create({
   },
   toolbar: {
     alignItems: 'center'
+  },
+  navView: {
+      flex: 1,
+      opacity: 0.6,
+      alignItems: 'center',
+      justifyContent: 'center'
+  },
+  navViewSelected: {
+      flex: 1,
+      opacity: 1,
+      borderBottomColor: '#fff',
+      borderBottomWidth: 2,
+      alignItems: 'center',
+      justifyContent: 'center'
+  },
+  button: {
+      flex: 1,
+      textAlignVertical: 'center',
+      textAlign: 'center',
+      fontFamily: 'Roboto',
+      fontSize: 14,
+      color: '#fff'
+  },
+  buttonSelected: {
+      flex: 1,
+      textAlignVertical: 'center',
+      textAlign: 'center',
+      fontFamily: 'Roboto',
+      fontSize: 14,
+      color: '#fff'
+  },
+  navbar:{
+    height: 48,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'space-around',
+    backgroundColor: "#2196F3"
   },
   actionButtons: {
     flexDirection: 'row',

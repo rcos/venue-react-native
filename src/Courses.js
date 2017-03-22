@@ -8,7 +8,8 @@ import {
   Image,
   ListView,
   Linking,
-  State
+  State,
+  TouchableHighlight
 } from 'react-native';
 
 var venue = require("venue-api-react");
@@ -32,25 +33,49 @@ export default class Courses extends Component{
     this.state = {courses: [], dataSource: ds.cloneWithRows([],[])};
   }
 
-  componentWillMount(){
-    venue.getMyCourses().then((courses) => {
-        this.setState((state) => {
-        state.courses = courses.map((c) => {
-          return {
-            title: c.name,
-            description: c.description,
-            course: c.courseNumber,
-            image: c.imageURLs[0],
-            courseId: c._id,
-            infoObject: c
-          };
+  componentDidMount(){
+    var scenes = this.props.navigator.getCurrentRoutes();
+    if (scenes.length == 2 && scenes[0]["title"] == "dashboard"){
+        venue.getMyCourses().then((courses) => {
+            this.setState((state) => {
+            state.courses = courses.map((c) => {
+              return {
+                title: c.name,
+                description: c.description,
+                course: c.courseNumber,
+                image: c.imageURLs[0],
+                courseId: c._id,
+                infoObject: c
+              };
+            });
+            state.dataSource = state.dataSource.cloneWithRows(
+              state.courses
+            );
+            return state;
+          });
         });
-        state.dataSource = state.dataSource.cloneWithRows(
-          state.courses
-        );
-        return state;
-      });
-    });
+    }
+    else {
+        venue.getCourses().then((courses) => {
+            this.setState((state) => {
+            state.courses = courses.map((c) => {
+              return {
+                title: c.name,
+                description: c.description,
+                course: c.courseNumber,
+                image: c.imageURLs[0],
+                courseId: c._id,
+                infoObject: c
+              };
+            });
+            state.dataSource = state.dataSource.cloneWithRows(
+              state.courses
+            );
+            return state;
+          });
+        });
+    }
+
   }
 
   renderCourseCard(courseInfo: {title:string, description:string, image:string, courseId:string, course: any, infoObject: any}){
@@ -97,11 +122,36 @@ export default class Courses extends Component{
 
     return (
       <View style={styles.container}>
-        <Toolbar
+      <View style={styles.navbar}>
+          <View style={styles.navView}>
+              <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                title: "submissions",
+              })}>
+                  <Text style={styles.button}>SUBMISSIONS</Text>
+              </TouchableHighlight>
+          </View>
+
+          <View style={styles.navView}>
+              <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                title: "dashboard",
+              })}>
+                  <Text style={styles.button}>DASHBOARD</Text>
+              </TouchableHighlight>
+          </View>
+
+          <View style={styles.navViewSelected}>
+              <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                title: "courses",
+              })}>
+                  <Text style={styles.buttonSelected}>COURSES</Text>
+              </TouchableHighlight>
+          </View>
+      </View>
+        {/* <Toolbar
           icon='arrow-back'
           onIconPress={() => this.props.navigator.pop()}
           style={[styles.toolbar]}
-          title={"venue courses"}/>
+          title={"venue courses"}/> */}
           {displayCourses}
       </View>
     );
@@ -115,7 +165,7 @@ const styles = StyleSheet.create({
   },
   cards: {
     flex:1,
-    marginTop: 60,
+    marginTop: 12,
     flexDirection: 'column'
   },
   cardTitle: {
@@ -124,6 +174,43 @@ const styles = StyleSheet.create({
   },
   toolbar: {
     alignItems: 'center'
+  },
+  navView: {
+      flex: 1,
+      opacity: 0.6,
+      alignItems: 'center',
+      justifyContent: 'center'
+  },
+  navViewSelected: {
+      flex: 1,
+      opacity: 1,
+      borderBottomColor: '#fff',
+      borderBottomWidth: 2,
+      alignItems: 'center',
+      justifyContent: 'center'
+  },
+  button: {
+      flex: 1,
+      textAlignVertical: 'center',
+      textAlign: 'center',
+      fontFamily: 'Roboto',
+      fontSize: 14,
+      color: '#fff'
+  },
+  buttonSelected: {
+      flex: 1,
+      textAlignVertical: 'center',
+      textAlign: 'center',
+      fontFamily: 'Roboto',
+      fontSize: 14,
+      color: '#fff'
+  },
+  navbar:{
+    height: 48,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'space-around',
+    backgroundColor: "#2196F3"
   },
   actionButtons: {
     flexDirection: 'row',
