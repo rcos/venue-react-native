@@ -48,7 +48,17 @@ export default class EventCard extends Component{
             </Card.Body>
             <Card.Actions position="left">
                 <Button value={this.props.course} text={this.props.course}
-                  onPress={() => Linking.openURL(venue.getDomain() + "/courses/" + this.props.eventInfo.courseId)}/>
+                  onPress={() => this.props.navigator.push(
+                    {title: "coursedetails",
+                    info: {
+                      courseId: this.props.courseId,
+                      courseInfo: {
+                          name: this.props.eventInfo.courseName,
+                          description: this.props.eventInfo.courseDescription,
+                          id: this.props.eventInfo.courseId,
+                          imageURLs: []
+                  }}})
+                }/>
                 <Button value="DETAILS" text="DETAILS"
                 onPress={() => this.props.navigator.push(
                   {title: "details",
