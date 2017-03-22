@@ -35,8 +35,6 @@ export default class Submissions extends Component{
   }
 
   componentDidMount(){
-    console.log("submissions");
-    console.log(venue.getMySubmissions());
     venue.getMySubmissions().then((subs) => {
         this.setState((state) => {
         state.submissions = subs.map((s) => {
@@ -102,31 +100,32 @@ export default class Submissions extends Component{
 
     return (
       <View style={styles.container}>
-      <View style={styles.navbar}>
-          <View style={styles.navViewSelected}>
-              <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                title: "submissions",
-              })}>
-                  <Text style={styles.buttonSelected}>SUBMISSIONS</Text>
-              </TouchableHighlight>
+          <View style={styles.navbar}>
+              <View style={styles.navViewSelected}>
+                  <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                    title: "submissions",
+                  })}>
+                      <Text style={styles.buttonSelected}>SUBMISSIONS</Text>
+                  </TouchableHighlight>
+              </View>
+
+              <View style={styles.navView}>
+                  <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                    title: "dashboard",
+                  })}>
+                      <Text style={styles.button}>EVENTS</Text>
+                  </TouchableHighlight>
+              </View>
+
+              <View style={styles.navView}>
+                  <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                    title: "courses",
+                  })}>
+                      <Text style={styles.button}>COURSES</Text>
+                  </TouchableHighlight>
+              </View>
           </View>
 
-          <View style={styles.navView}>
-              <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                title: "dashboard",
-              })}>
-                  <Text style={styles.button}>EVENTS</Text>
-              </TouchableHighlight>
-          </View>
-
-          <View style={styles.navView}>
-              <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                title: "courses",
-              })}>
-                  <Text style={styles.button}>COURSES</Text>
-              </TouchableHighlight>
-          </View>
-      </View>
           {displayCourses}
       </View>
     );

@@ -108,31 +108,30 @@ export default class Dashboard extends Component{
 
     return (
       <View style={styles.container}>
+            <View style={styles.navbar}>
+                <View style={styles.navView}>
+                    <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                      title: "submissions",
+                    })}>
+                        <Text style={styles.button}>SUBMISSIONS</Text>
+                    </TouchableHighlight>
+                </View>
 
-        <View style={styles.navbar}>
-            <View style={styles.navView}>
-                <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                  title: "submissions",
-                })}>
-                    <Text style={styles.button}>SUBMISSIONS</Text>
-                </TouchableHighlight>
-            </View>
+                <View style={styles.navViewSelected}>
+                    <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                      title: "dashboard",
+                    })}>
+                        <Text style={styles.buttonSelected}>EVENTS</Text>
+                    </TouchableHighlight>
+                </View>
 
-            <View style={styles.navViewSelected}>
-                <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                  title: "dashboard",
-                })}>
-                    <Text style={styles.buttonSelected}>EVENTS</Text>
-                </TouchableHighlight>
-            </View>
-
-            <View style={styles.navView}>
-                <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                  title: "courses",
-                })}>
-                    <Text style={styles.button}>COURSES</Text>
-                </TouchableHighlight>
-            </View>
+                <View style={styles.navView}>
+                    <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                      title: "courses",
+                    })}>
+                        <Text style={styles.button}>COURSES</Text>
+                    </TouchableHighlight>
+                </View>
         </View>
           {displayDashboard}
       </View>
@@ -145,7 +144,8 @@ export default class Dashboard extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    flexDirection: 'column',
   },
   cards: {
     flex:1,
@@ -168,7 +168,8 @@ const styles = StyleSheet.create({
       borderBottomColor: '#fff',
       borderBottomWidth: 2,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      elevation: 1,
   },
   button: {
       flex: 1,

@@ -31,7 +31,6 @@ export default class CourseCard extends Component{
         resizeMode={Image.resizeMode.cover}
         source={{uri: venue.getDomain() + this.props.image}}
       />;
-      console.log(this.props.image);
     }
 
     return (
@@ -46,7 +45,7 @@ export default class CourseCard extends Component{
             <Card.Body>
                 <Text>{this.props.description}</Text>
             </Card.Body>
-            <Card.Actions position="center">
+            <Card.Actions position="left">
             <Button value="DETAILS" text="DETAILS"
               onPress={() => this.props.navigator.push(
                 {title: "coursedetails",

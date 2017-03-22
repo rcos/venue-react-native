@@ -30,16 +30,15 @@ export default class Signin extends Component{
 
   whenNavigationStateChanges(navState: any){
     var navigator = this.props.navigator;
-    this.setState({attemptingAuth: true});
     fetch(navState.url, {
       method: 'GET'
     }).then((response) => {
       return response.json();
     }).then((json) => {
+      //this.setState({attemptingAuth: true});
       if (json['token']){
-        if (this.state.attemptingAuth){
+        if (!this.state.attemptingAuth){
             venue.authenticateWithToken(json['token']).then(() => {
-            console.log("attempting to reset");
             navigator.resetTo({title: "dashboard"});
           });
         }
@@ -63,7 +62,7 @@ export default class Signin extends Component{
               CAS Login Page
             </WebView>
             <ActivityIndicator
-              style={ (this.state.attemptingAuth) ? styles.loadingScreen : styles.loadingScreenHidden }
+              style={(this.state.attemptingAuth) ? styles.loadingScreen : styles.loadingScreenHidden}
               size="large"/>
           </View>
         );
