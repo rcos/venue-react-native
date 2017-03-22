@@ -122,7 +122,7 @@ export default class Dashboard extends Component{
                 <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
                   title: "dashboard",
                 })}>
-                    <Text style={styles.buttonSelected}>DASHBOARD</Text>
+                    <Text style={styles.buttonSelected}>EVENTS</Text>
                 </TouchableHighlight>
             </View>
 
@@ -134,15 +134,6 @@ export default class Dashboard extends Component{
                 </TouchableHighlight>
             </View>
         </View>
-        {/* <Toolbar
-          style={[styles.toolbar]}
-          actions={[{
-            icon: "library-books",
-            onPress: () => this.props.navigator.push({
-              title: "submissions",
-            })
-          }]}
-          title={"venue dashboard"}/> */}
           {displayDashboard}
       </View>
     );
@@ -164,9 +155,6 @@ const styles = StyleSheet.create({
   cardTitle: {
     color: "#fff",
     fontSize:24
-  },
-  toolbar: {
-    alignItems: 'center'
   },
   navView: {
       flex: 1,
