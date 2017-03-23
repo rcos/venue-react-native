@@ -15,7 +15,7 @@ import {
 
 import { Button, Card } from 'react-native-material-design';
 
-export default class EventCard extends Component{
+export default class CourseCard extends Component{
 
   render(){
 
@@ -31,7 +31,6 @@ export default class EventCard extends Component{
         resizeMode={Image.resizeMode.cover}
         source={{uri: venue.getDomain() + this.props.image}}
       />;
-      console.log(this.props.image);
     }
 
     return (
@@ -47,47 +46,27 @@ export default class EventCard extends Component{
                 <Text>{this.props.description}</Text>
             </Card.Body>
             <Card.Actions position="left">
-                <Button value={this.props.course} text={this.props.course}
-                  onPress={() => this.props.navigator.push(
-                    {title: "coursedetails",
-                    info: {
-                      courseId: this.props.courseId,
-                      courseInfo: {
-                          name: this.props.eventInfo.courseName,
-                          description: this.props.eventInfo.courseDescription,
-                          id: this.props.eventInfo.courseId,
-                          imageURLs: []
-                  }}})
-                }/>
-                <Button value="DETAILS" text="DETAILS"
-                onPress={() => this.props.navigator.push(
-                  {title: "details",
-                  info: {
-                    event: this.props.eventId,
-                    eventInfo: this.props.eventInfo
-                  }})
-                }/>
-                <Button value="ATTEND" text="ATTEND"
-                  onPress={() => this.props.navigator.push(
-                    {title: "upload",
-                    info: {
-                      eventId: this.props.eventId,
-                      eventInfo: this.props.eventInfo
-                    }})
-                  }/>
+            <Button value="DETAILS" text="DETAILS"
+              onPress={() => this.props.navigator.push(
+                {title: "coursedetails",
+                info: {
+                  courseId: this.props.courseId,
+                  courseInfo: this.props.courseInfo
+                }})
+              }/>
             </Card.Actions>
         </Card>
     );
   }
 }
 
-EventCard.propTypes = {
+CourseCard.propTypes = {
   title: PropTypes.string,
-  eventId: PropTypes.string,
+  courseId: PropTypes.string,
   description: PropTypes.string,
   image: PropTypes.string,
   course: PropTypes.string,
-  eventInfo: PropTypes.object
+  courseInfo: PropTypes.object
 };
 
 const styles = StyleSheet.create({

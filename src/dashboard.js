@@ -10,7 +10,8 @@ import {
   Image,
   ListView,
   Linking,
-  State
+  State,
+  TouchableHighlight
 } from 'react-native';
 
 var venue = require("venue-api-react");
@@ -23,7 +24,8 @@ export default class Dashboard extends Component{
 
   state: {
     events: [any],
-    dataSource: [any]
+    dataSource: [any],
+    page: string
   };
 
   constructor(){
@@ -31,10 +33,10 @@ export default class Dashboard extends Component{
     var ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1.title !== r2.title
     });
-    this.state = {events: [], dataSource: ds.cloneWithRows([],[])};
+    this.state = {events: [], dataSource: ds.cloneWithRows([],[]), page: "dashboard"};
   }
 
-  componentWillMount(){
+  componentDidMount(){
     venue.getMyEvents().then((events) => {
       this.setState((state) => {
         state.events = events.map((e) => {
@@ -94,8 +96,9 @@ export default class Dashboard extends Component{
         <Text style={styles.eventsHelpMessage}>
           There are no events on the venue
         </Text>
-        <Text style={styles.mobileSiteMessage} onPress={()=> Linking.openURL(venue.getDomain())}>
-          Check out the mobile site to enroll in courses
+        <Text style={styles.mobileSiteMessage} onPress={()=> this.props.navigator.push(
+          {title: "courses"})}>
+          Check out the Courses page to enroll in courses
         </Text>
         <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
           Report Issues/Give Feedback
@@ -105,9 +108,31 @@ export default class Dashboard extends Component{
 
     return (
       <View style={styles.container}>
-        <Toolbar
-          style={[styles.toolbar]}
-          title={"venue dashboard"}/>
+            <View style={styles.navbar}>
+                <View style={styles.navView}>
+                    <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                      title: "submissions",
+                    })}>
+                        <Text style={styles.button}>SUBMISSIONS</Text>
+                    </TouchableHighlight>
+                </View>
+
+                <View style={styles.navViewSelected}>
+                    <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                      title: "dashboard",
+                    })}>
+                        <Text style={styles.buttonSelected}>EVENTS</Text>
+                    </TouchableHighlight>
+                </View>
+
+                <View style={styles.navView}>
+                    <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
+                      title: "courses",
+                    })}>
+                        <Text style={styles.button}>COURSES</Text>
+                    </TouchableHighlight>
+                </View>
+        </View>
           {displayDashboard}
       </View>
     );
@@ -119,19 +144,56 @@ export default class Dashboard extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    flexDirection: 'column',
   },
   cards: {
     flex:1,
-    marginTop: 60,
+    marginTop: 12,
     flexDirection: 'column'
   },
   cardTitle: {
     color: "#fff",
     fontSize:24
   },
-  toolbar: {
-    alignItems: 'center'
+  navView: {
+      flex: 1,
+      opacity: 0.6,
+      alignItems: 'center',
+      justifyContent: 'center'
+  },
+  navViewSelected: {
+      flex: 1,
+      opacity: 1,
+      borderBottomColor: '#fff',
+      borderBottomWidth: 2,
+      alignItems: 'center',
+      justifyContent: 'center',
+      elevation: 1,
+  },
+  button: {
+      flex: 1,
+      textAlignVertical: 'center',
+      textAlign: 'center',
+      fontFamily: 'Roboto',
+      fontSize: 14,
+      color: '#fff'
+  },
+  buttonSelected: {
+      flex: 1,
+      textAlignVertical: 'center',
+      textAlign: 'center',
+      fontFamily: 'Roboto',
+      fontSize: 14,
+      color: '#fff'
+  },
+  navbar:{
+    height: 48,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'space-around',
+    backgroundColor: "#2196F3",
+    elevation: 2,
   },
   actionButtons: {
     flexDirection: 'row',

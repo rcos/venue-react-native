@@ -31,6 +31,20 @@ class venueReactNative extends Component {
     });
   }
 
+  configureScene(route, navigator){
+      //Transitions based on route title
+      switch (route.title) {
+          case 'upload':
+            return Navigator.SceneConfigs.FadeAndroid;
+          case 'details':
+            return Navigator.SceneConfigs.FadeAndroid;
+          case 'coursedetails':
+            return Navigator.SceneConfigs.FadeAndroid;
+      }
+      //DEFAULT TRANSITION
+      return Navigator.SceneConfigs.PushFromRight;
+  }
+
   renderScene(route, navigator){
     var Comp = routes[route.title].component;
     console.log(route.info);
@@ -47,6 +61,7 @@ class venueReactNative extends Component {
     return (
       <Navigator
         ref={(nav) => this.navigator = nav}
+        configureScene={this.configureScene}
         style={styles.container}
         initialRoute={initialState}
         renderScene={this.renderScene}
