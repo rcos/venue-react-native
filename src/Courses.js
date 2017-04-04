@@ -113,6 +113,7 @@ export default class Courses extends Component{
 
   render(){
     let displayCourses;
+    let routes = this.props.navigator.getCurrentRoutes();
     if (this.state.courses.length > 0){
         displayCourses = <ListView
           style={styles.cards}
@@ -142,27 +143,35 @@ export default class Courses extends Component{
       <View style={styles.container}>
           <View style={styles.navbar}>
               <View style={styles.navView}>
-                  <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                    title: "submissions",
-                  })}>
+                  <TouchableHighlight onPress={()=> {
+                      let index = containsRoute("submissions", routes);
+                      if (index>=0){
+                          this.props.navigator.jumpTo(routes[index]);
+                      }
+                      else{
+                          this.props.navigator.push({title:"submissions"});
+                      }
+                   }}>
                       <Text style={styles.button}>SUBMISSIONS</Text>
                   </TouchableHighlight>
               </View>
 
               <View style={styles.navView}>
-                  <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                    title: "dashboard",
-                  })}>
+                  <TouchableHighlight onPress={()=>{
+                      let index = containsRoute("dashboard", routes);
+                      if (index>=0){
+                          this.props.navigator.jumpTo(routes[index]);
+                      }
+                      else{
+                          this.props.navigator.push({title:"dashboard"});
+                      }
+                  }}>
                       <Text style={styles.button}>EVENTS</Text>
                   </TouchableHighlight>
               </View>
 
               <View style={styles.navViewSelected}>
-                  <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                    title: "courses",
-                  })}>
-                      <Text style={styles.buttonSelected}>COURSES</Text>
-                  </TouchableHighlight>
+                 <Text style={styles.buttonSelected}>COURSES</Text>
               </View>
           </View>
           <View>
@@ -175,6 +184,17 @@ export default class Courses extends Component{
       </View>
     );
   }
+}
+
+function containsRoute(string, routes){
+    let found = -1;
+    for (var i=0; i<routes.length; i++){
+        if(routes[i]['title'] == string){
+            found = i;
+            break;
+        }
+    }
+    return found;
 }
 
 const styles = StyleSheet.create({

@@ -55,6 +55,7 @@ export default class Dashboard extends Component{
         return state;
       });
     });
+
   }
 
   renderEventCard(eventInfo: {title:string, description:string, image:string, eventId:string, course: any, infoObject: any}){
@@ -77,6 +78,7 @@ export default class Dashboard extends Component{
 
   render(){
     let displayDashboard;
+    let routes = this.props.navigator.getCurrentRoutes();
     if(this.state.events.length > 0) {
       displayDashboard = <ListView
         style={styles.cards}
@@ -110,25 +112,34 @@ export default class Dashboard extends Component{
       <View style={styles.container}>
             <View style={styles.navbar}>
                 <View style={styles.navView}>
-                    <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                      title: "submissions",
-                    })}>
+                    <TouchableHighlight onPress={()=> {
+                        let index = containsRoute("submissions", routes);
+                        if (index>=0){
+                            this.props.navigator.jumpTo(routes[index]);
+                        }
+                        else{
+                            this.props.navigator.push({title:"submissions"});
+                        }
+
+                    }}>
                         <Text style={styles.button}>SUBMISSIONS</Text>
                     </TouchableHighlight>
                 </View>
 
                 <View style={styles.navViewSelected}>
-                    <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                      title: "dashboard",
-                    })}>
-                        <Text style={styles.buttonSelected}>EVENTS</Text>
-                    </TouchableHighlight>
+                    <Text style={styles.buttonSelected}>EVENTS</Text>
                 </View>
 
                 <View style={styles.navView}>
-                    <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                      title: "courses",
-                    })}>
+                    <TouchableHighlight onPress={()=> {
+                        let index = containsRoute("courses", routes);
+                        if (index>=0){
+                            this.props.navigator.jumpTo(routes[index]);
+                        }
+                        else{
+                            this.props.navigator.push({title:"courses"});
+                        }
+                    }}>
                         <Text style={styles.button}>COURSES</Text>
                     </TouchableHighlight>
                 </View>
@@ -139,7 +150,16 @@ export default class Dashboard extends Component{
   }
 }
 
-
+function containsRoute(string, routes){
+    let found = -1;
+    for (var i=0; i<routes.length; i++){
+        if(routes[i]['title'] == string){
+            found = i;
+            break;
+        }
+    }
+    return found;
+}
 
 const styles = StyleSheet.create({
   container: {

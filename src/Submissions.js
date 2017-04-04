@@ -73,6 +73,7 @@ export default class Submissions extends Component{
 
   render(){
     let displayCourses;
+    let routes = this.props.navigator.getCurrentRoutes();
     if (this.state.submissions.length > 0){
         displayCourses = <ListView
           style={styles.cards}
@@ -102,25 +103,33 @@ export default class Submissions extends Component{
       <View style={styles.container}>
           <View style={styles.navbar}>
               <View style={styles.navViewSelected}>
-                  <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                    title: "submissions",
-                  })}>
-                      <Text style={styles.buttonSelected}>SUBMISSIONS</Text>
-                  </TouchableHighlight>
+                <Text style={styles.buttonSelected}>SUBMISSIONS</Text>
               </View>
 
               <View style={styles.navView}>
-                  <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                    title: "dashboard",
-                  })}>
+                  <TouchableHighlight onPress={()=> {
+                      let index = containsRoute("dashboard", routes);
+                      if (index>=0){
+                          this.props.navigator.jumpTo(routes[index]);
+                      }
+                      else{
+                          this.props.navigator.push({title:"dashboard"});
+                      }
+                  }}>
                       <Text style={styles.button}>EVENTS</Text>
                   </TouchableHighlight>
               </View>
 
               <View style={styles.navView}>
-                  <TouchableHighlight onPress={()=> this.props.navigator.resetTo({
-                    title: "courses",
-                  })}>
+                  <TouchableHighlight onPress={()=> {
+                      let index = containsRoute("courses", routes);
+                      if (index>=0){
+                          this.props.navigator.jumpTo(routes[index]);
+                      }
+                      else{
+                          this.props.navigator.push({title:"courses"});
+                      }
+                  }}>
                       <Text style={styles.button}>COURSES</Text>
                   </TouchableHighlight>
               </View>
@@ -130,6 +139,17 @@ export default class Submissions extends Component{
       </View>
     );
   }
+}
+
+function containsRoute(string, routes){
+    let found = -1;
+    for (var i=0; i<routes.length; i++){
+        if(routes[i]['title'] == string){
+            found = i;
+            break;
+        }
+    }
+    return found;
 }
 
 const styles = StyleSheet.create({
