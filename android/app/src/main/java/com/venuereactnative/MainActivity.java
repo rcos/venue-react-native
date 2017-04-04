@@ -1,10 +1,13 @@
 package com.venuereactnative;
 
 import com.facebook.react.ReactActivity;
+import com.cboy.rn.splashscreen.SplashScreen;
+import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+import android.os.Bundle;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +21,12 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "venueReactNative";
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.show(this);  // here
+        super.onCreate(savedInstanceState);
     }
 
     /**
@@ -37,6 +46,7 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new SplashScreenReactPackage(),
             new RCTCameraPackage(),
             new VectorIconsPackage()
         );

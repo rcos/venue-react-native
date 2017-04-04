@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 import { Button, Toolbar } from 'react-native-material-design';
-
+import SplashScreen from 'react-native-splash-screen'
 export default class Signin extends Component{
 
   state: {
@@ -27,6 +27,11 @@ export default class Signin extends Component{
       attemptingAuth: false
     };
   }
+
+  componentDidMount() {
+    SplashScreen.hide();
+  }
+
 
   whenNavigationStateChanges(navState: any){
     var navigator = this.props.navigator;
