@@ -34,15 +34,12 @@ class venueReactNative extends Component {
   configureScene(route, navigator){
       //Transitions based on route title
       switch (route.title) {
-          case 'upload':
-            return Navigator.SceneConfigs.FadeAndroid;
-          case 'details':
-            return Navigator.SceneConfigs.FadeAndroid;
-          case 'coursedetails':
-            return Navigator.SceneConfigs.FadeAndroid;
+          //add route transitions here
+          //case 'routename':
+            //return Navigator.SceneConfigs.TRANSITION
       }
       //DEFAULT TRANSITION
-      return Navigator.SceneConfigs.PushFromRight;
+      return Navigator.SceneConfigs.FadeAndroid;
   }
 
   renderScene(route, navigator){
