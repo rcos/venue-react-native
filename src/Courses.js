@@ -15,7 +15,7 @@ import {
 var venue = require("venue-api-react");
 
 import { Button, Toolbar, Card } from 'react-native-material-design';
-
+import { gotoRoute } from './helpers'
 import CourseCard from "./CourseCard";
 
 export default class Courses extends Component{
@@ -144,28 +144,14 @@ export default class Courses extends Component{
           <View style={styles.navbar}>
               <View style={styles.navView}>
                   <TouchableHighlight onPress={()=> {
-                      let index = containsRoute("submissions", routes);
-                      if (index>=0){
-                          this.props.navigator.jumpTo(routes[index]);
-                      }
-                      else{
-                          this.props.navigator.push({title:"submissions"});
-                      }
-                   }}>
+                      gotoRoute("submissions", this.props.navigator)}}>
                       <Text style={styles.button}>SUBMISSIONS</Text>
                   </TouchableHighlight>
               </View>
 
               <View style={styles.navView}>
                   <TouchableHighlight onPress={()=>{
-                      let index = containsRoute("dashboard", routes);
-                      if (index>=0){
-                          this.props.navigator.jumpTo(routes[index]);
-                      }
-                      else{
-                          this.props.navigator.push({title:"dashboard"});
-                      }
-                  }}>
+                      gotoRoute("dashboard", this.props.navigator)}}>
                       <Text style={styles.button}>EVENTS</Text>
                   </TouchableHighlight>
               </View>
@@ -184,17 +170,6 @@ export default class Courses extends Component{
       </View>
     );
   }
-}
-
-function containsRoute(string, routes){
-    let found = -1;
-    for (var i=0; i<routes.length; i++){
-        if(routes[i]['title'] == string){
-            found = i;
-            break;
-        }
-    }
-    return found;
 }
 
 const styles = StyleSheet.create({

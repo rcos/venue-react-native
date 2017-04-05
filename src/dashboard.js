@@ -17,7 +17,7 @@ import {
 var venue = require("venue-api-react");
 
 import { Button, Toolbar, Card } from 'react-native-material-design';
-
+import { gotoRoute } from './helpers'
 import EventCard from "./EventCard";
 
 export default class Dashboard extends Component{
@@ -98,8 +98,7 @@ export default class Dashboard extends Component{
         <Text style={styles.eventsHelpMessage}>
           There are no events on the venue
         </Text>
-        <Text style={styles.mobileSiteMessage} onPress={()=> this.props.navigator.push(
-          {title: "courses"})}>
+        <Text style={styles.mobileSiteMessage} onPress={()=> gotoRoute("courses", this.props.navigator)}>
           Check out the Courses page to enroll in courses
         </Text>
         <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
@@ -113,15 +112,7 @@ export default class Dashboard extends Component{
             <View style={styles.navbar}>
                 <View style={styles.navView}>
                     <TouchableHighlight onPress={()=> {
-                        let index = containsRoute("submissions", routes);
-                        if (index>=0){
-                            this.props.navigator.jumpTo(routes[index]);
-                        }
-                        else{
-                            this.props.navigator.push({title:"submissions"});
-                        }
-
-                    }}>
+                        gotoRoute("submissions", this.props.navigator)}}>
                         <Text style={styles.button}>SUBMISSIONS</Text>
                     </TouchableHighlight>
                 </View>
@@ -132,14 +123,7 @@ export default class Dashboard extends Component{
 
                 <View style={styles.navView}>
                     <TouchableHighlight onPress={()=> {
-                        let index = containsRoute("courses", routes);
-                        if (index>=0){
-                            this.props.navigator.jumpTo(routes[index]);
-                        }
-                        else{
-                            this.props.navigator.push({title:"courses"});
-                        }
-                    }}>
+                        gotoRoute("courses", this.props.navigator)}}>
                         <Text style={styles.button}>COURSES</Text>
                     </TouchableHighlight>
                 </View>
@@ -148,17 +132,6 @@ export default class Dashboard extends Component{
       </View>
     );
   }
-}
-
-function containsRoute(string, routes){
-    let found = -1;
-    for (var i=0; i<routes.length; i++){
-        if(routes[i]['title'] == string){
-            found = i;
-            break;
-        }
-    }
-    return found;
 }
 
 const styles = StyleSheet.create({
