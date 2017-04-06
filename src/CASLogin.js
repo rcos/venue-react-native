@@ -9,7 +9,8 @@ import {
   View,
   StyleSheet,
   WebView,
-  ActivityIndicator
+  ActivityIndicator,
+  Image
 } from 'react-native';
 
 import { Button, Toolbar } from 'react-native-material-design';
@@ -44,6 +45,7 @@ export default class Signin extends Component{
       if (json['token']){
         if (!this.state.attemptingAuth){
             venue.authenticateWithToken(json['token']).then(() => {
+            console.log("Resetting to dashboard");
             navigator.resetTo({title: "dashboard"});
           });
         }
@@ -57,8 +59,11 @@ export default class Signin extends Component{
   render(){
         return (
           <View style={styles.container}>
-            <Toolbar
-              title={"venue - Login with CAS"}/>
+            <View style={styles.toolbar}>
+              <Image
+                  source={require('./img/toolbarlogo.png')}
+                  style={styles.logo}/>
+            </View>
             <WebView
               style={(this.state.attemptingAuth) ? styles.hidden : styles.webview}
               source={{uri: venue.getDomain() + "/auth/cas?mobile=true"}}
@@ -78,6 +83,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff"
+  },
+  toolbar:{
+    height: 48,
+    backgroundColor: "#2196F3",
+    elevation: 2,
+  },
+  logo: {
+      height: 20,
+      width: 108,
+      position: 'absolute',
+      bottom: 0
   },
   webview: {
     marginTop:55,

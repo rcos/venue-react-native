@@ -33,6 +33,7 @@ export default class Courses extends Component{
     });
     this.state = {courses: [], dataSource: ds.cloneWithRows([],[]), allCourses: false};
   }
+
   componentDidUpdate(){
       if (!this.state.allCourses){
           venue.getMyCourses().then((courses) => {
@@ -75,6 +76,7 @@ export default class Courses extends Component{
           });
       }
   }
+
   componentDidMount(){
       venue.getMyCourses().then((courses) => {
           this.setState((state) => {
@@ -113,7 +115,6 @@ export default class Courses extends Component{
 
   render(){
     let displayCourses;
-    let routes = this.props.navigator.getCurrentRoutes();
     if (this.state.courses.length > 0){
         displayCourses = <ListView
           style={styles.cards}
@@ -141,6 +142,11 @@ export default class Courses extends Component{
 
     return (
       <View style={styles.container}>
+          <View style={styles.toolbar}>
+            <Image
+              source={require('./img/toolbarlogo.png')}
+              style={styles.logo}/>
+          </View>
           <View style={styles.navbar}>
               <View style={styles.navView}>
                   <TouchableHighlight onPress={()=> {
@@ -178,6 +184,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     flexDirection: 'column'
   },
+  logo: {
+      height: 20,
+      width: 108,
+      position: 'absolute',
+      bottom: 0
+  },
   cards: {
     flex:1,
     marginTop: 12,
@@ -200,7 +212,6 @@ const styles = StyleSheet.create({
       borderBottomWidth: 2,
       alignItems: 'center',
       justifyContent: 'center',
-      elevation: 1,
   },
   button: {
       flex: 1,
@@ -223,7 +234,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-around',
-    backgroundColor: "#2196F3"
+    backgroundColor: "#2196F3",
+    elevation: 2
+  },
+  toolbar:{
+    height: 24,
+    backgroundColor: "#2196F3",
+    elevation: 2,
   },
   actionButtons: {
     flexDirection: 'row',

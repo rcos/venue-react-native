@@ -11,7 +11,8 @@ import {
   ListView,
   Linking,
   State,
-  TouchableHighlight
+  TouchableHighlight,
+  PanResponder
 } from 'react-native';
 
 var venue = require("venue-api-react");
@@ -78,7 +79,6 @@ export default class Dashboard extends Component{
 
   render(){
     let displayDashboard;
-    let routes = this.props.navigator.getCurrentRoutes();
     if(this.state.events.length > 0) {
       displayDashboard = <ListView
         style={styles.cards}
@@ -109,6 +109,11 @@ export default class Dashboard extends Component{
 
     return (
       <View style={styles.container}>
+            <View style={styles.toolbar}>
+                <Image
+                    source={require('./img/toolbarlogo.png')}
+                    style={styles.logo}/>
+            </View>
             <View style={styles.navbar}>
                 <View style={styles.navView}>
                     <TouchableHighlight onPress={()=> {
@@ -127,8 +132,8 @@ export default class Dashboard extends Component{
                         <Text style={styles.button}>COURSES</Text>
                     </TouchableHighlight>
                 </View>
-        </View>
-          {displayDashboard}
+            </View>
+            {displayDashboard}
       </View>
     );
   }
@@ -139,6 +144,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     flexDirection: 'column',
+  },
+  logo: {
+      height: 20,
+      width: 108,
+      position: 'absolute',
+      bottom: 0
   },
   cards: {
     flex:1,
@@ -162,7 +173,6 @@ const styles = StyleSheet.create({
       borderBottomWidth: 2,
       alignItems: 'center',
       justifyContent: 'center',
-      elevation: 1,
   },
   button: {
       flex: 1,
@@ -185,6 +195,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-around',
+    backgroundColor: "#2196F3",
+    elevation: 2,
+  },
+  toolbar:{
+    height: 24,
     backgroundColor: "#2196F3",
     elevation: 2,
   },

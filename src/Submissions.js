@@ -73,7 +73,6 @@ export default class Submissions extends Component{
 
   render(){
     let displayCourses;
-    let routes = this.props.navigator.getCurrentRoutes();
     if (this.state.submissions.length > 0){
         displayCourses = <ListView
           style={styles.cards}
@@ -101,6 +100,11 @@ export default class Submissions extends Component{
 
     return (
       <View style={styles.container}>
+          <View style={styles.toolbar}>
+            <Image
+              source={require('./img/toolbarlogo.png')}
+              style={styles.logo}/>
+          </View>
           <View style={styles.navbar}>
               <View style={styles.navViewSelected}>
                 <Text style={styles.buttonSelected}>SUBMISSIONS</Text>
@@ -131,6 +135,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff"
+  },
+  logo: {
+      height: 20,
+      width: 108,
+      position: 'absolute',
+      bottom: 0
   },
   cards: {
     flex:1,
@@ -176,7 +186,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-around',
-    backgroundColor: "#2196F3"
+    backgroundColor: "#2196F3",
+    elevation: 2
+  },
+  toolbar:{
+    height: 24,
+    backgroundColor: "#2196F3",
+    elevation: 2,
   },
   actionButtons: {
     flexDirection: 'row',
