@@ -9,7 +9,7 @@ import {
   ListView,
   Linking,
   State,
-  TouchableHighlight
+  TouchableOpacity
 } from 'react-native';
 
 var venue = require("venue-api-react");
@@ -111,17 +111,17 @@ export default class Submissions extends Component{
               </View>
 
               <View style={styles.navView}>
-                  <TouchableHighlight onPress={()=> {
+                  <TouchableOpacity onPress={()=> {
                       gotoRoute("dashboard", this.props.navigator)}}>
                       <Text style={styles.button}>EVENTS</Text>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
               </View>
 
               <View style={styles.navView}>
-                  <TouchableHighlight onPress={()=> {
+                  <TouchableOpacity onPress={()=> {
                       gotoRoute("courses", this.props.navigator)}}>
                       <Text style={styles.button}>COURSES</Text>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
               </View>
           </View>
 

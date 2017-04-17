@@ -9,7 +9,7 @@ import {
   ListView,
   Linking,
   State,
-  TouchableHighlight
+  TouchableOpacity
 } from 'react-native';
 
 var venue = require("venue-api-react");
@@ -148,22 +148,23 @@ export default class Courses extends Component{
               style={styles.logo}/>
           </View>
           <View style={styles.navbar}>
+
               <View style={styles.navView}>
-                  <TouchableHighlight onPress={()=> {
-                      gotoRoute("submissions", this.props.navigator)}}>
+                  <TouchableOpacity onPress={()=> {
+                    gotoRoute("submissions", this.props.navigator)}}>
                       <Text style={styles.button}>SUBMISSIONS</Text>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
               </View>
 
               <View style={styles.navView}>
-                  <TouchableHighlight onPress={()=>{
-                      gotoRoute("dashboard", this.props.navigator)}}>
+                  <TouchableOpacity onPress={()=> {
+                    gotoRoute("dashboard", this.props.navigator)}}>
                       <Text style={styles.button}>EVENTS</Text>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
               </View>
 
               <View style={styles.navViewSelected}>
-                 <Text style={styles.buttonSelected}>COURSES</Text>
+                  <Text style={styles.button}>COURSES</Text>
               </View>
           </View>
           <View>
@@ -214,14 +215,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
   },
   button: {
-      flex: 1,
-      textAlignVertical: 'center',
-      textAlign: 'center',
-      fontFamily: 'Roboto',
-      fontSize: 14,
-      color: '#fff'
-  },
-  buttonSelected: {
       flex: 1,
       textAlignVertical: 'center',
       textAlign: 'center',

@@ -11,7 +11,7 @@ import {
   ListView,
   Linking,
   State,
-  TouchableHighlight,
+  TouchableOpacity,
   PanResponder
 } from 'react-native';
 
@@ -116,10 +116,10 @@ export default class Dashboard extends Component{
             </View>
             <View style={styles.navbar}>
                 <View style={styles.navView}>
-                    <TouchableHighlight onPress={()=> {
+                    <TouchableOpacity onPress={()=> {
                         gotoRoute("submissions", this.props.navigator)}}>
                         <Text style={styles.button}>SUBMISSIONS</Text>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </View>
 
                 <View style={styles.navViewSelected}>
@@ -127,10 +127,10 @@ export default class Dashboard extends Component{
                 </View>
 
                 <View style={styles.navView}>
-                    <TouchableHighlight onPress={()=> {
+                    <TouchableOpacity onPress={()=> {
                         gotoRoute("courses", this.props.navigator)}}>
                         <Text style={styles.button}>COURSES</Text>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </View>
             </View>
             {displayDashboard}
