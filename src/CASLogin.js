@@ -101,61 +101,58 @@ export default class Signin extends Component{
                  // navigation state change
               });
       });
-}
+  }
 
-    render(){
-        let display;
-        if (this.state.attemptingAuth){
-            display =
-            <View>
-                <Toolbar
-                    title={"venue"}/>
-                <ActivityIndicator
+  render(){
+      let display;
+      if (this.state.attemptingAuth){
+          display =
+          <View>
+              <Toolbar
+                title={"venue"}/>
+                  <ActivityIndicator
                     color="#2196F3"
                     animating={this.state.attemptingAuth}
                     style={styles.loadingScreen}
                     size="large"/>
-            </View>;
-        }
-        else{
-            display =
-            <View>
-                <Toolbar
-                  title={"venue"}/>
-                <Text style={styles.welcome}>
-                  CAS Login
-                </Text>
-                <TextInput
-                  placeholder={"Username"}
-                  style={styles.textInput}
-                  onChangeText={(username) => this.setState({username})}
-                  value={this.state.username}
-                />
-                <TextInput
-                  placeholder={"Password"}
-                  secureTextEntry={true}
-                  style={styles.textInput}
-                  onChangeText={(password) => this.setState({password})}
-                  value={this.state.password}
-                />
-                <View style={styles.actionButtons}>
-                  <Button text="Sign up" value="Sign up" onPress={()=> Linking.openURL(venue.getSignupURL())} />
-                  <Button text="Sign in" value="Sign in" onPress={()=> this.signInPress()} />
-                </View>
+          </View>;
+      }
+      else{
+          display =
+           <View>
+               <Toolbar
+                 title={"venue"}/>
+                   <Text style={styles.welcome}>
+                      CAS Login
+                   </Text>
+                   <TextInput
+                     placeholder={"Username"}
+                     style={styles.textInput}
+                     onChangeText={(username) => this.setState({username})}
+                     value={this.state.username}/>
+
+                   <TextInput
+                     placeholder={"Password"}
+                     secureTextEntry={true}
+                     style={styles.textInput}
+                     onChangeText={(password) => this.setState({password})}
+                     value={this.state.password}/>
+
+                   <View style={styles.actionButtons}>
+                       <Button text="Sign up" value="Sign up" onPress={()=> Linking.openURL(venue.getSignupURL())} />
+                       <Button text="Sign in" value="Sign in" onPress={()=> this.signInPress()} />
+                   </View>
             </View>;
         }
         console.log("Login token is: "+this.state.lt);
         console.log("execution  is: "+this.state.execution);
         return (
-          <View style={styles.container}>
-            {display}
-          </View>
-
+            <View style={styles.container}>
+                {display}
+            </View>
         );
       }
     }
-
-
 
   const styles = StyleSheet.create({
     container: {
@@ -190,98 +187,3 @@ export default class Signin extends Component{
         padding: 8,
       },
   });
-
-
-
-//   whenNavigationStateChanges(navState: any){
-//     var navigator = this.props.navigator;
-//     console.log("navurl: "+navState.url);
-//     fetch(navState.url, {
-//       method: 'GET'
-//     }).then((response) => {
-//       return response.json();
-//     }).then((json) => {
-//         console.log("HERES JSON");
-//         console.log(json);
-//       //this.setState({attemptingAuth: true});
-//       if (json['token']){
-//         if (!this.state.attemptingAuth){
-//             venue.authenticateWithToken(json['token']).then(() => {
-//             console.log("Resetting to dashboard");
-//             //navigator.resetTo({title: "dashboard"});
-//           });
-//         }
-//       }
-//     }).catch((err,arg2) => {
-//       // Ignore all the errors- they come from bad URLS during the
-//       // navigation state change
-//     });
-//   }
-//
-//   render(){
-//         //console.log("login token is: "+this.state.lt);
-//         return (
-//           <View style={styles.container}>
-//             <View style={styles.toolbar}>
-//               <Image
-//                   source={require('./img/toolbarlogo.png')}
-//                   style={styles.logo}/>
-//             </View>
-//             <WebView
-//               style={(this.state.attemptingAuth) ? styles.hidden : styles.webview}
-//               source={{uri: venue.getDomain() + "/auth/cas?mobile=true"}}
-//               onNavigationStateChange={this.whenNavigationStateChanges.bind(this)}
-//               >
-//               CAS Login Page
-//             </WebView>
-//             <ActivityIndicator
-//               style={(this.state.attemptingAuth) ? styles.loadingScreen : styles.loadingScreenHidden}
-//               size="large"/>
-//           </View>
-//         );
-//     }
-// }
-//
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff"
-//   },
-//   toolbar:{
-//     height: 48,
-//     backgroundColor: "#2196F3",
-//     elevation: 2,
-//   },
-//   logo: {
-//       height: 20,
-//       width: 108,
-//       position: 'absolute',
-//       bottom: 0
-//   },
-//   webview: {
-//     marginTop:55,
-//     flex: 1,
-//   },
-//   hidden:{
-//       flex: 0,
-//       width: 0,
-//       height: 0,
-//       opacity: 0
-//   },
-//   loadingScreenHidden:{
-//       flex: 0,
-//       width: 0,
-//       height: 0,
-//       opacity: 0
-//   },
-//   loadingScreen:{
-//       flex: 1,
-//       alignItems: 'center',
-//       justifyContent: 'center',
-//       padding: 8,
-//   },
-//   text: {
-//       flex: 1,
-//       fontSize: 30
-//   }
-// });
