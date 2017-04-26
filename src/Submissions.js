@@ -90,7 +90,7 @@ export default class Submissions extends Component{
     else {
       displayCourses = <View style={styles.coursesHelp}>
         <Text style={styles.coursesHelpMessage}>
-          You have no submissions
+          You have no submissions.
         </Text>
         <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
           Report Issues/Give Feedback

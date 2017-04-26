@@ -26,7 +26,6 @@ export default class CourseDetails extends Component{
   render(){
 
     var crs = this.props.courseInfo;
-    console.log(crs.imageURLs);
     return (
       <View style={styles.container}>
         <Toolbar
@@ -53,7 +52,7 @@ export default class CourseDetails extends Component{
               <Text style={{marginBottom:10}}> {crs.description} </Text>
             </View>
           </View>
-          <InfoItem
+          {/* <InfoItem
           iconColor="#aaa"
           icon="plus"
           centerContent={true}
@@ -62,7 +61,7 @@ export default class CourseDetails extends Component{
               }
           }>
             Join this course
-          </InfoItem>
+          </InfoItem> */}
         </ScrollView>
       </View>
     );

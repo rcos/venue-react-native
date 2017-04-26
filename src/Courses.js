@@ -131,8 +131,8 @@ export default class Courses extends Component{
     }
     else {
       displayCourses = <View style={styles.coursesHelp}>
-        <Text style={styles.coursesHelpMessage}>
-          There are no Courses on the venue
+        <Text style={styles.feedbackForm} onPress={()=> Linking.openURL(venue.getDomain()+"?mobile=true")}>
+          You have not joined any courses. Press here to add courses on the mobile site.
         </Text>
         <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
           Report Issues/Give Feedback
@@ -167,12 +167,12 @@ export default class Courses extends Component{
                   <Text style={styles.button}>COURSES</Text>
               </View>
           </View>
-          <View>
+          {/* <View>
               <Button
               text={(this.state.allCourses) ? "All Courses" : "My Courses"}
               onPress={() => this.setState({allCourses: !this.state.allCourses})}
               />
-          </View>
+          </View> */}
           {displayCourses}
       </View>
     );
@@ -265,13 +265,5 @@ const styles = StyleSheet.create({
     flex:1,
     marginTop: 60,
     flexDirection: 'column'
-  },
-  coursesHelpMessage:{
-    fontSize:18,
-    width:400,
-    marginTop:100,
-    marginBottom:50,
-    alignSelf: 'center',
-    textAlign: 'center'
   },
 });

@@ -31,7 +31,6 @@ export default class EventCard extends Component{
         resizeMode={Image.resizeMode.cover}
         source={{uri: venue.getDomain() + this.props.image}}
       />;
-      console.log(this.props.image);
     }
 
     return (

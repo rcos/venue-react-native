@@ -38,7 +38,7 @@ export default class Dashboard extends Component{
     this.state = {events: [], dataSource: ds.cloneWithRows([],[]), page: "dashboard"};
   }
 
-  componentDidMount(){
+  componentWillMount(){
     venue.getMyEvents().then((events) => {
       this.setState((state) => {
         state.events = events.map((e) => {
@@ -59,7 +59,7 @@ export default class Dashboard extends Component{
     });
   }
 
-  componentWillMount(){
+  componentDidMount(){
       venue.getMyCourses().then((courses) => {
           console.log(courses);
           this.setState((state) => {
@@ -127,10 +127,7 @@ export default class Dashboard extends Component{
     else {
       displayDashboard = <View style={styles.eventsHelp}>
         <Text style={styles.eventsHelpMessage}>
-          There are no events on the venue
-        </Text>
-        <Text style={styles.mobileSiteMessage} onPress={()=> gotoRoute("courses", this.props.navigator)}>
-          Check out the Courses page to enroll in courses
+          You currently have no events assigned.
         </Text>
         <Text style={styles.feedbackForm} onPress={()=> Linking.openURL("http://goo.gl/forms/EmZAB93IcEDAwWkn1")}>
           Report Issues/Give Feedback
