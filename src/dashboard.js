@@ -135,27 +135,27 @@ export default class Dashboard extends Component{
     return (
       <View style={styles.container}>
             <Toolbar
-                title="Venue Submissions"/>
+                title="Events"/>
             {displayDashboard}
             <View style={styles.navbar}>
                 <View style={styles.navView}>
-                    <TouchableOpacity onPress={()=> {
+                    <TouchableOpacity style={styles.navHighlight} onPress={()=> {
                         gotoRoute("submissions", this.props.navigator)}}>
-                        <Icon name="view-list" size={24}/>
-                        <Text style={styles.button}>Submissions</Text>
+                        <Icon style={styles.navIcon} name="view-list" size={24}/>
+                        <Text style={styles.navText}>Submissions</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.navViewSelected}>
-                    <Icon name="event" color="#2196F3" size={24}/>
-                    <Text style={styles.buttonSelected}>Events</Text>
+                    <Icon style={styles.navIconSelected} name="event" color="#2196F3" size={24}/>
+                    <Text style={styles.navTextSelected}>Events</Text>
                 </View>
 
                 <View style={styles.navView}>
-                    <TouchableOpacity onPress={()=> {
+                    <TouchableOpacity style={styles.navHighlight} onPress={()=> {
                         gotoRoute("courses", this.props.navigator)}}>
-                        <Icon name="library-books" size={24}/>
-                        <Text style={styles.button}>Courses</Text>
+                        <Icon style={styles.navIcon} name="library-books" size={24}/>
+                        <Text style={styles.navText}>Courses</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -176,33 +176,46 @@ const styles = StyleSheet.create({
     marginTop: 60,
     flexDirection: 'column'
   },
+  navHighlight: {
+      flex: 1,
+      alignItems: 'center'
+  },
   navView: {
       flex: 1,
       opacity: 0.7,
       alignItems: 'center',
-      justifyContent: 'center',
   },
   navViewSelected: {
       flex: 1,
       opacity: 1,
       alignItems: 'center',
-      justifyContent: 'center',
   },
-  button: {
+  navText: {
       flex: 1,
-      textAlignVertical: 'center',
       textAlign: 'center',
       fontFamily: 'Roboto',
+      marginTop: 2,
       fontSize: 12,
-      color: '#757575'
+      color: '#757575',
+      paddingLeft: 12,
+      paddingRight: 12,
+      marginBottom: 8
   },
-  buttonSelected: {
+  navTextSelected: {
       flex: 1,
-      textAlignVertical: 'center',
       textAlign: 'center',
       fontFamily: 'Roboto',
       fontSize: 14,
-      color: '#2196F3'
+      color: '#2196F3',
+      paddingLeft: 12,
+      paddingRight: 12,
+      marginBottom: 8
+  },
+  navIcon: {
+      marginTop: 8,
+  },
+  navIconSelected: {
+      marginTop: 6,
   },
   navbar:{
     height: 56,
