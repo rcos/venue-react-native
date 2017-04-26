@@ -32,6 +32,7 @@ export default class Details extends Component{
   render(){
 
     var evt = this.props.eventInfo;
+    let title="Event for "+evt.courseNumber;
 
     return (
       <View style={styles.container}>
@@ -48,7 +49,7 @@ export default class Details extends Component{
               }
             })
           }]}
-          title={evt.info.title}/>
+          title={title}/>
         <ScrollView>
           <Image
             style={styles.eventImage}

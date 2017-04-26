@@ -80,7 +80,7 @@ export default class Signin extends Component{
         return (
           <View style={styles.container}>
             <Toolbar
-              title={"venue - Login with CAS"}/>
+              title={"CAS Login"}/>
             <WebView
               style={(this.state.attemptingAuth) ? styles.hidden : styles.webview}
               source={{uri: venue.getDomain() + "/auth/cas?mobile=true"}}
