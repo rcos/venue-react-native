@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 
 import { Button, Card } from 'react-native-material-design';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+var dateFormat = require('dateformat');
 
 export default class SubmissionCard extends Component{
 
@@ -32,7 +34,23 @@ export default class SubmissionCard extends Component{
         source={{uri: venue.getDomain() + this.props.image}}
       />;
     }
+    let verificationContainer;
+    if (this.props.submissionInfo.verified){
+         {
+            verificationContainer = <View style={styles.verifiContainer}>
+                <Icon name="done" color="#00FF00" size={24}></Icon>
+                <Text>Verified</Text>
+            </View>;
+        }
+    }
+    else{
+        verificationContainer = <View style={styles.verifiContainer}>
+            <Icon name="warning" color="#FF0000" size={24}></Icon>
+            <Text>Unverified</Text>
+        </View>;
+    }
 
+    let date = dateFormat(this.props.date, "mm/dd h:MMtt");
     return (
         <Card>
             <Card.Media
@@ -43,8 +61,13 @@ export default class SubmissionCard extends Component{
               <Text style={styles.cardTitle}> {this.props.event} </Text>
             </Card.Media>
             <Card.Body>
-                <Text>Author: {this.props.author}</Text>
-                <Text>Submitted: {this.props.date}</Text>
+                <View style={styles.bodyContainer}>
+                    <View style={styles.cardInfo}>
+                        <Text>Author: {this.props.author}</Text>
+                        <Text>Submitted: {date}</Text>
+                    </View>
+                    {verificationContainer}
+                </View>
             </Card.Body>
         </Card>
     );
@@ -68,5 +91,19 @@ const styles = StyleSheet.create({
   cardImage: {
     left:0,
     right:0
+  },
+  bodyContainer: {
+      flexDirection: 'row'
+  },
+  verifiContainer: {
+      flexDirection: 'column',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center'
+  },
+  cardInfo: {
+      flexDirection: 'column',
+      flex: 3,
+      justifyContent: 'center'
   }
 });
