@@ -79,6 +79,7 @@ export default class Upload extends Component{
           state.mode = Upload.MODE.UPLOADING;
           return state;
         });
+        console.log(imagePath);
 
         // Upload to site
         venue.uploadToEvent({
@@ -87,9 +88,18 @@ export default class Upload extends Component{
           eventId: this.props.eventId,
           filePath: imagePath,
           coordinates: [ this.state.position.coords.longitude, this.state.position.coords.latitude ]
-        }).then(() => {
-          ToastAndroid.show("Upload Successful!", ToastAndroid.SHORT);
-          this.props.navigator.pop();
+      }).then((res) => {
+          if (res.status > 200){
+              ToastAndroid.show("Upload Failed! Please try again.", ToastAndroid.SHORT);
+              this.setState((state)=>{
+                state.mode = Upload.MODE.INPUT_FORM;
+                return state;
+              });
+          }
+          else{
+              ToastAndroid.show("Upload Successful!", ToastAndroid.SHORT);
+              this.props.navigator.pop();
+          }
         });
 
       })
