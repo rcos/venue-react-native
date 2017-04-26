@@ -24,9 +24,7 @@ var dateFormat = require('dateformat');
 export default class CourseDetails extends Component{
 
   render(){
-
     var crs = this.props.courseInfo;
-    console.log(crs);
     return (
       <View style={styles.container}>
         <Toolbar

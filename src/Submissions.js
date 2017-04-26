@@ -73,7 +73,6 @@ export default class Submissions extends Component{
   }
 
   render(){
-    console.log(this.state.submissions.length);
     var displayCourses;
     if (this.state.submissions.length > 0){
         displayCourses = <ListView
