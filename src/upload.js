@@ -79,7 +79,6 @@ export default class Upload extends Component{
           state.mode = Upload.MODE.UPLOADING;
           return state;
         });
-        console.log(imagePath);
 
         // Upload to site
         venue.uploadToEvent({
@@ -128,29 +127,43 @@ export default class Upload extends Component{
       );
     }else if (this.state.mode == Upload.MODE.INPUT_FORM){
       pageContent = (
-        <View style={{marginTop: 200}}>
-          <TextInput
-            placeholder={"Submission Title"}
-            style={styles.textInput}
-            onChangeText={(submissionTitle) => this.setState({submissionTitle})}
-            value={this.state.submissionTitle}
-          />
-          <TextInput
-            placeholder={"Submission Content"}
-            style={styles.textInput}
-            multiline={true}
-            numberOfLines={4}
-            onChangeText={(submissionContent) => this.setState({submissionContent})}
-            value={this.state.submissionContent}
-          />
-          <Button text="Take Photo and Submit" value="Take photo and submit" onPress={()=> this.setState({mode: Upload.MODE.TAKING_PHOTO})} />
+          <View>
+            <View style={styles.toolbar}>
+              <Image
+                  source={require('./img/toolbarlogo.png')}
+                  style={styles.logo}/>
+            </View>
+            <View style={{marginTop: 200}}>
+              <TextInput
+                placeholder={"Submission Title"}
+                style={styles.textInput}
+                onChangeText={(submissionTitle) => this.setState({submissionTitle})}
+                value={this.state.submissionTitle}
+              />
+              <TextInput
+                placeholder={"Submission Content"}
+                style={styles.textInput}
+                multiline={true}
+                numberOfLines={4}
+                onChangeText={(submissionContent) => this.setState({submissionContent})}
+                value={this.state.submissionContent}
+              />
+              <Button text="Take Photo and Submit" value="Take photo and submit" onPress={()=> this.setState({mode: Upload.MODE.TAKING_PHOTO})} />
+            </View>
         </View>
       );
     }else if (this.state.mode == Upload.MODE.UPLOADING){
       pageContent = (
-        <View style={{marginTop:200}}>
-          <ProgressBarAndroid styleAttr='Large'  />
-          <Text style={{textAlign:'center', marginTop:20}}> Upload in progress </Text>
+          <View>
+            <View style={styles.toolbar}>
+              <Image
+                  source={require('./img/toolbarlogo.png')}
+                  style={styles.logo}/>
+            </View>
+            <View style={{marginTop:200}}>
+              <ProgressBarAndroid styleAttr='Large'  />
+              <Text style={{textAlign:'center', marginTop:20}}> Upload in progress </Text>
+            </View>
         </View>
       );
     }
@@ -158,10 +171,6 @@ export default class Upload extends Component{
     return (
       <View>
         {pageContent}
-        <Toolbar
-        icon='arrow-back'
-        onIconPress={() => this.props.navigator.pop()}
-        title={"Upload to " + this.props.eventInfo.info.title}/>
       </View>
     );
   }
@@ -174,9 +183,16 @@ Upload.propTypes = {
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff"
+  toolbar:{
+    height: 48,
+    backgroundColor: "#2196F3",
+    elevation: 2,
+  },
+  logo: {
+      height: 20,
+      width: 108,
+      position: 'absolute',
+      bottom: 0
   },
   preview: {
     flex: 1,

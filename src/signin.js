@@ -97,7 +97,5 @@ const styles = StyleSheet.create({
     width:200,
     alignSelf: 'center',
     textAlign: 'center'
-  },
-  password: {
   }
 });

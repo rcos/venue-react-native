@@ -61,15 +61,6 @@ SubmissionCard.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff"
-  },
-  cards: {
-    flex:1,
-    marginTop: 60,
-    flexDirection: 'column'
-  },
   cardTitle: {
     color: "#fff",
     fontSize:24
@@ -77,28 +68,5 @@ const styles = StyleSheet.create({
   cardImage: {
     left:0,
     right:0
-  },
-  toolbar: {
-    alignItems: 'center'
-  },
-  actionButtons: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    justifyContent: 'center'
-  },
-  welcome: {
-    fontSize: 48,
-    textAlign: 'center',
-    margin: 10,
-    marginTop: 100,
-    marginBottom:50
-  },
-  textInput: {
-    fontSize:18,
-    width:200,
-    alignSelf: 'center',
-    textAlign: 'center'
-  },
-  password: {
   }
 });

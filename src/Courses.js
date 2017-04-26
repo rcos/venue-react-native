@@ -185,20 +185,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fdfdfd",
     flexDirection: 'column'
   },
-  logo: {
-      height: 20,
-      width: 108,
-      position: 'absolute',
-      bottom: 0
-  },
   cards: {
     flex:1,
     marginTop: 60,
     flexDirection: 'column'
-  },
-  cardTitle: {
-    color: "#fff",
-    fontSize:24
   },
   navView: {
       flex: 1,
@@ -235,24 +225,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     backgroundColor: "#fdfdfd",
     elevation: 8,
-  },
-  actionButtons: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    justifyContent: 'center'
-  },
-  welcome: {
-    fontSize: 48,
-    textAlign: 'center',
-    margin: 10,
-    marginTop: 100,
-    marginBottom:50
-  },
-  textInput: {
-    fontSize:18,
-    width:200,
-    alignSelf: 'center',
-    textAlign: 'center'
   },
   feedbackForm:{
     fontSize:14,
