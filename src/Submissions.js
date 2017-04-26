@@ -34,7 +34,7 @@ export default class Submissions extends Component{
     this.state = {submissions: [], dataSource: ds.cloneWithRows([],[])};
   }
 
-  componentDidMount(){
+  componentWillMount(){
     venue.getMySubmissions().then((subs) => {
         this.setState((state) => {
         state.submissions = subs.map((s) => {

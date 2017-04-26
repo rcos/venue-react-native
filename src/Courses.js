@@ -34,50 +34,50 @@ export default class Courses extends Component{
     this.state = {courses: [], dataSource: ds.cloneWithRows([],[]), allCourses: false};
   }
 
-  componentDidUpdate(){
-      if (!this.state.allCourses){
-          venue.getMyCourses().then((courses) => {
-              this.setState((state) => {
-              state.courses = courses.map((c) => {
-                return {
-                  title: c.name,
-                  description: c.description,
-                  course: c.courseNumber,
-                  image: c.imageURLs[0],
-                  courseId: c._id,
-                  infoObject: c
-                };
-              });
-              state.dataSource = state.dataSource.cloneWithRows(
-                state.courses
-              );
-              return state;
-            });
-          });
-      }
-      else {
-          venue.getCourses().then((courses) => {
-              this.setState((state) => {
-              state.courses = courses.map((c) => {
-                return {
-                  title: c.name,
-                  description: c.description,
-                  course: c.courseNumber,
-                  image: c.imageURLs[0],
-                  courseId: c._id,
-                  infoObject: c
-                };
-              });
-              state.dataSource = state.dataSource.cloneWithRows(
-                state.courses
-              );
-              return state;
-            });
-          });
-      }
-  }
+  // componentDidUpdate(){
+  //     if (!this.state.allCourses){
+  //         venue.getMyCourses().then((courses) => {
+  //             this.setState((state) => {
+  //             state.courses = courses.map((c) => {
+  //               return {
+  //                 title: c.name,
+  //                 description: c.description,
+  //                 course: c.courseNumber,
+  //                 image: c.imageURLs[0],
+  //                 courseId: c._id,
+  //                 infoObject: c
+  //               };
+  //             });
+  //             state.dataSource = state.dataSource.cloneWithRows(
+  //               state.courses
+  //             );
+  //             return state;
+  //           });
+  //         });
+  //     }
+  //     else {
+  //         venue.getCourses().then((courses) => {
+  //             this.setState((state) => {
+  //             state.courses = courses.map((c) => {
+  //               return {
+  //                 title: c.name,
+  //                 description: c.description,
+  //                 course: c.courseNumber,
+  //                 image: c.imageURLs[0],
+  //                 courseId: c._id,
+  //                 infoObject: c
+  //               };
+  //             });
+  //             state.dataSource = state.dataSource.cloneWithRows(
+  //               state.courses
+  //             );
+  //             return state;
+  //           });
+  //         });
+  //     }
+  // }
 
-  componentDidMount(){
+  componentWillMount(){
       venue.getMyCourses().then((courses) => {
           this.setState((state) => {
           state.courses = courses.map((c) => {
