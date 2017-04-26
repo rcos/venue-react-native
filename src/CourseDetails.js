@@ -26,7 +26,7 @@ export default class CourseDetails extends Component{
   render(){
 
     var crs = this.props.courseInfo;
-
+    console.log(crs.imageURLs);
     return (
       <View style={styles.container}>
         <Toolbar
@@ -38,7 +38,7 @@ export default class CourseDetails extends Component{
             style={styles.courseImage}
             resizeMode={Image.resizeMode.cover}
             source={crs.imageURLs.length > 0 ?
-              { uri: venue.getDomain() + crs.imageURLs[0] }
+              { uri: venue.getDomain() + crs.imageURLs }
               :require("./img/default_event.jpg")}>
           </Image>
           <View style={styles.imageContentContainer}>

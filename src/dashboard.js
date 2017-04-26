@@ -25,6 +25,7 @@ export default class Dashboard extends Component{
 
   state: {
     events: [any],
+    courses: [any],
     dataSource: [any],
     page: string
   };
@@ -56,10 +57,39 @@ export default class Dashboard extends Component{
         return state;
       });
     });
+  }
 
+  componentWillMount(){
+      venue.getMyCourses().then((courses) => {
+          console.log(courses);
+          this.setState((state) => {
+              state.courses = courses.map((c) => {
+                  return {
+                      id: c._id,
+                      image: c.imageURLs[0]
+                  }
+              });
+              return state;
+          })
+      });
   }
 
   renderEventCard(eventInfo: {title:string, description:string, image:string, eventId:string, course: any, infoObject: any}){
+      console.log(eventInfo.infoObject);
+    let courseImage;
+    if (this.state.courses){
+        for (let i=0; i<this.state.courses.length; i++){
+            if (this.state.courses[i]["id"] === eventInfo.infoObject.courseId){
+                courseImage = this.state.courses[i]["image"];
+                break;
+            }
+        }
+        console.log(courseImage);
+    }
+    else{
+        courseImage = eventInfo.image;
+        console.log(courseImage);
+    }
 
     return (
       <EventCard
@@ -70,6 +100,7 @@ export default class Dashboard extends Component{
         eventId={eventInfo.eventId}
         course={eventInfo.course}
         eventInfo={eventInfo.infoObject}
+        courseImage={courseImage}
         />
     );
 

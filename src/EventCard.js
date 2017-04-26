@@ -56,7 +56,7 @@ export default class EventCard extends Component{
                           name: this.props.eventInfo.courseName,
                           description: this.props.eventInfo.courseDescription,
                           id: this.props.eventInfo.courseId,
-                          imageURLs: []
+                          imageURLs: this.props.courseImage
                   }}})
                 }/>
                 <Button value="DETAILS" text="DETAILS"
@@ -87,7 +87,8 @@ EventCard.propTypes = {
   description: PropTypes.string,
   image: PropTypes.string,
   course: PropTypes.string,
-  eventInfo: PropTypes.object
+  eventInfo: PropTypes.object,
+  courseImage: PropTypes.string
 };
 
 const styles = StyleSheet.create({
