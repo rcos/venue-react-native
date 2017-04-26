@@ -50,7 +50,8 @@ export default class SubmissionCard extends Component{
         </View>;
     }
 
-    let date = dateFormat(this.props.date, "mm/dd h:MMtt");
+    let date = " "+dateFormat(this.props.date, "mm/dd h:MMtt");
+    let author = " "+this.props.author;
     return (
         <Card>
             <Card.Media
@@ -63,8 +64,16 @@ export default class SubmissionCard extends Component{
             <Card.Body>
                 <View style={styles.bodyContainer}>
                     <View style={styles.cardInfo}>
-                        <Text>Author: {this.props.author}</Text>
-                        <Text>Submitted: {date}</Text>
+                        <Text style={{fontWeight: 'bold'}}>Author:
+                            <Text style={{fontWeight: 'normal'}}>
+                                {author}
+                            </Text>
+                        </Text>
+                        <Text style={{fontWeight: 'bold'}}>Submitted:
+                            <Text style={{fontWeight: 'normal'}}>
+                                {date}
+                            </Text>
+                        </Text>
                     </View>
                     {verificationContainer}
                 </View>
