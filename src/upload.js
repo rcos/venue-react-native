@@ -71,6 +71,15 @@ export default class Upload extends Component{
     navigator.geolocation.clearWatch(this.watchID);
   }
 
+  changeState() {
+      if (this.state.submissionTitle.length>0){
+          this.setState({mode: Upload.MODE.TAKING_PHOTO});
+      }
+      else{
+          ToastAndroid.show("Title is required!", ToastAndroid.SHORT);
+      }
+  }
+
   takePicture() {
     this.camera.capture()
       .then((data) => {
@@ -89,14 +98,14 @@ export default class Upload extends Component{
           coordinates: [ this.state.position.coords.longitude, this.state.position.coords.latitude ]
       }).then((res) => {
           if (res.status > 200){
-              ToastAndroid.show("Upload Failed! Please try again.", ToastAndroid.SHORT);
+              ToastAndroid.show("Upload failed! Please try again.", ToastAndroid.SHORT);
               this.setState((state)=>{
                 state.mode = Upload.MODE.INPUT_FORM;
                 return state;
               });
           }
           else{
-              ToastAndroid.show("Upload Successful!", ToastAndroid.SHORT);
+              ToastAndroid.show("Upload successful!", ToastAndroid.SHORT);
               this.props.navigator.pop();
           }
         });
@@ -128,14 +137,13 @@ export default class Upload extends Component{
     }else if (this.state.mode == Upload.MODE.INPUT_FORM){
       pageContent = (
           <View>
-            <View style={styles.toolbar}>
-              <Image
-                  source={require('./img/toolbarlogo.png')}
-                  style={styles.logo}/>
-            </View>
+          <Toolbar
+              icon='arrow-back'
+              onIconPress={() => this.props.navigator.pop()}
+              title="Upload"/>
             <View style={{marginTop: 200}}>
               <TextInput
-                placeholder={"Submission Title"}
+                placeholder={"Submission Title*"}
                 style={styles.textInput}
                 onChangeText={(submissionTitle) => this.setState({submissionTitle})}
                 value={this.state.submissionTitle}
@@ -144,22 +152,20 @@ export default class Upload extends Component{
                 placeholder={"Submission Content"}
                 style={styles.textInput}
                 multiline={true}
-                numberOfLines={4}
                 onChangeText={(submissionContent) => this.setState({submissionContent})}
                 value={this.state.submissionContent}
               />
-              <Button text="Take Photo and Submit" value="Take photo and submit" onPress={()=> this.setState({mode: Upload.MODE.TAKING_PHOTO})} />
+              <Button text="Take Photo and Submit" value="Take photo and submit" onPress={() => this.changeState()} />
             </View>
         </View>
       );
     }else if (this.state.mode == Upload.MODE.UPLOADING){
       pageContent = (
           <View>
-            <View style={styles.toolbar}>
-              <Image
-                  source={require('./img/toolbarlogo.png')}
-                  style={styles.logo}/>
-            </View>
+            <Toolbar
+                icon='arrow-back'
+                onIconPress={() => this.props.navigator.pop()}
+                title="Upload"/>
             <View style={{marginTop:200}}>
               <ProgressBarAndroid styleAttr='Large'  />
               <Text style={{textAlign:'center', marginTop:20}}> Upload in progress </Text>
@@ -183,17 +189,6 @@ Upload.propTypes = {
 
 
 const styles = StyleSheet.create({
-  toolbar:{
-    height: 48,
-    backgroundColor: "#2196F3",
-    elevation: 2,
-  },
-  logo: {
-      height: 20,
-      width: 108,
-      position: 'absolute',
-      bottom: 0
-  },
   preview: {
     flex: 1,
     flexDirection: 'column',
