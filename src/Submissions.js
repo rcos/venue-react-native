@@ -15,7 +15,8 @@ import {
 var venue = require("venue-api-react");
 
 import { Button, Toolbar, Card } from 'react-native-material-design';
-import { gotoRoute } from './helpers'
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { gotoRoute } from './helpers';
 import SubmissionCard from "./SubmissionCard";
 import CourseCard from "./CourseCard";
 
@@ -100,32 +101,31 @@ export default class Submissions extends Component{
 
     return (
       <View style={styles.container}>
-          <View style={styles.toolbar}>
-            <Image
-              source={require('./img/toolbarlogo.png')}
-              style={styles.logo}/>
-          </View>
+          <Toolbar
+              title="Venue Events"/>
+          {displayCourses}
           <View style={styles.navbar}>
               <View style={styles.navViewSelected}>
-                <Text style={styles.buttonSelected}>SUBMISSIONS</Text>
+                 <Icon name="view-list" color="#2196F3" size={24}/>
+                 <Text style={styles.buttonSelected}>Submissions</Text>
               </View>
 
               <View style={styles.navView}>
                   <TouchableOpacity onPress={()=> {
                       gotoRoute("dashboard", this.props.navigator)}}>
-                      <Text style={styles.button}>EVENTS</Text>
+                      <Icon name="event" size={24}/>
+                      <Text style={styles.button}>Events</Text>
                   </TouchableOpacity>
               </View>
 
               <View style={styles.navView}>
                   <TouchableOpacity onPress={()=> {
                       gotoRoute("courses", this.props.navigator)}}>
-                      <Text style={styles.button}>COURSES</Text>
+                      <Icon name="library-books" size={24}/>
+                      <Text style={styles.button}>Courses</Text>
                   </TouchableOpacity>
               </View>
           </View>
-
-          {displayCourses}
       </View>
     );
   }
@@ -134,7 +134,7 @@ export default class Submissions extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#fdfdfd"
   },
   logo: {
       height: 20,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   },
   cards: {
     flex:1,
-    marginTop: 12,
+    marginTop: 60,
     flexDirection: 'column'
   },
   cardTitle: {
@@ -153,25 +153,23 @@ const styles = StyleSheet.create({
   },
   navView: {
       flex: 1,
-      opacity: 0.6,
+      opacity: 0.7,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
   },
   navViewSelected: {
       flex: 1,
       opacity: 1,
-      borderBottomColor: '#fff',
-      borderBottomWidth: 2,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
   },
   button: {
       flex: 1,
       textAlignVertical: 'center',
       textAlign: 'center',
       fontFamily: 'Roboto',
-      fontSize: 14,
-      color: '#fff'
+      fontSize: 12,
+      color: '#757575'
   },
   buttonSelected: {
       flex: 1,
@@ -179,20 +177,15 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontFamily: 'Roboto',
       fontSize: 14,
-      color: '#fff'
+      color: '#2196F3'
   },
   navbar:{
-    height: 48,
+    height: 56,
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-around',
-    backgroundColor: "#2196F3",
-    elevation: 2
-  },
-  toolbar:{
-    height: 24,
-    backgroundColor: "#2196F3",
-    elevation: 2,
+    backgroundColor: "#fdfdfd",
+    elevation: 8,
   },
   actionButtons: {
     flexDirection: 'row',

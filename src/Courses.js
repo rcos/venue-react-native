@@ -15,6 +15,7 @@ import {
 var venue = require("venue-api-react");
 
 import { Button, Toolbar, Card } from 'react-native-material-design';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { gotoRoute } from './helpers'
 import CourseCard from "./CourseCard";
 
@@ -142,31 +143,8 @@ export default class Courses extends Component{
 
     return (
       <View style={styles.container}>
-          <View style={styles.toolbar}>
-            <Image
-              source={require('./img/toolbarlogo.png')}
-              style={styles.logo}/>
-          </View>
-          <View style={styles.navbar}>
-
-              <View style={styles.navView}>
-                  <TouchableOpacity onPress={()=> {
-                    gotoRoute("submissions", this.props.navigator)}}>
-                      <Text style={styles.button}>SUBMISSIONS</Text>
-                  </TouchableOpacity>
-              </View>
-
-              <View style={styles.navView}>
-                  <TouchableOpacity onPress={()=> {
-                    gotoRoute("dashboard", this.props.navigator)}}>
-                      <Text style={styles.button}>EVENTS</Text>
-                  </TouchableOpacity>
-              </View>
-
-              <View style={styles.navViewSelected}>
-                  <Text style={styles.button}>COURSES</Text>
-              </View>
-          </View>
+          <Toolbar
+              title="Venue Courses"/>
           {/* <View>
               <Button
               text={(this.state.allCourses) ? "All Courses" : "My Courses"}
@@ -174,6 +152,28 @@ export default class Courses extends Component{
               />
           </View> */}
           {displayCourses}
+          <View style={styles.navbar}>
+              <View style={styles.navView}>
+                  <TouchableOpacity onPress={()=> {
+                      gotoRoute("submissions", this.props.navigator)}}>
+                      <Icon name="view-list" size={24}/>
+                      <Text style={styles.button}>Submissions</Text>
+                  </TouchableOpacity>
+              </View>
+
+              <View style={styles.navView}>
+                  <TouchableOpacity onPress={()=> {
+                      gotoRoute("dashboard", this.props.navigator)}}>
+                      <Icon name="event" size={24}/>
+                      <Text style={styles.button}>Events</Text>
+                  </TouchableOpacity>
+              </View>
+
+              <View style={styles.navViewSelected}>
+                 <Icon name="library-books" color="#2196F3" size={24}/>
+                 <Text style={styles.buttonSelected}>Courses</Text>
+              </View>
+          </View>
       </View>
     );
   }
@@ -182,7 +182,7 @@ export default class Courses extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#fdfdfd",
     flexDirection: 'column'
   },
   logo: {
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
   },
   cards: {
     flex:1,
-    marginTop: 12,
+    marginTop: 60,
     flexDirection: 'column'
   },
   cardTitle: {
@@ -202,15 +202,13 @@ const styles = StyleSheet.create({
   },
   navView: {
       flex: 1,
-      opacity: 0.6,
+      opacity: 0.7,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
   },
   navViewSelected: {
       flex: 1,
       opacity: 1,
-      borderBottomColor: '#fff',
-      borderBottomWidth: 2,
       alignItems: 'center',
       justifyContent: 'center',
   },
@@ -219,21 +217,24 @@ const styles = StyleSheet.create({
       textAlignVertical: 'center',
       textAlign: 'center',
       fontFamily: 'Roboto',
+      fontSize: 12,
+      color: '#757575'
+  },
+  buttonSelected: {
+      flex: 1,
+      textAlignVertical: 'center',
+      textAlign: 'center',
+      fontFamily: 'Roboto',
       fontSize: 14,
-      color: '#fff'
+      color: '#2196F3'
   },
   navbar:{
-    height: 48,
+    height: 56,
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-around',
-    backgroundColor: "#2196F3",
-    elevation: 2
-  },
-  toolbar:{
-    height: 24,
-    backgroundColor: "#2196F3",
-    elevation: 2,
+    backgroundColor: "#fdfdfd",
+    elevation: 8,
   },
   actionButtons: {
     flexDirection: 'row',

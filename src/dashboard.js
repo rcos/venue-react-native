@@ -17,6 +17,7 @@ import {
 
 var venue = require("venue-api-react");
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Button, Toolbar, Card } from 'react-native-material-design';
 import { gotoRoute } from './helpers'
 import EventCard from "./EventCard";
@@ -61,7 +62,6 @@ export default class Dashboard extends Component{
 
   componentDidMount(){
       venue.getMyCourses().then((courses) => {
-          console.log(courses);
           this.setState((state) => {
               state.courses = courses.map((c) => {
                   return {
@@ -75,7 +75,6 @@ export default class Dashboard extends Component{
   }
 
   renderEventCard(eventInfo: {title:string, description:string, image:string, eventId:string, course: any, infoObject: any}){
-      console.log(eventInfo.infoObject);
     let courseImage;
     if (this.state.courses){
         for (let i=0; i<this.state.courses.length; i++){
@@ -84,11 +83,9 @@ export default class Dashboard extends Component{
                 break;
             }
         }
-        console.log(courseImage);
     }
     else{
         courseImage = eventInfo.image;
-        console.log(courseImage);
     }
 
     return (
@@ -137,31 +134,32 @@ export default class Dashboard extends Component{
 
     return (
       <View style={styles.container}>
-            <View style={styles.toolbar}>
-                <Image
-                    source={require('./img/toolbarlogo.png')}
-                    style={styles.logo}/>
-            </View>
+            <Toolbar
+                title="Venue Submissions"/>
+            {displayDashboard}
             <View style={styles.navbar}>
                 <View style={styles.navView}>
                     <TouchableOpacity onPress={()=> {
                         gotoRoute("submissions", this.props.navigator)}}>
-                        <Text style={styles.button}>SUBMISSIONS</Text>
+                        <Icon name="view-list" size={24}/>
+                        <Text style={styles.button}>Submissions</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.navViewSelected}>
-                    <Text style={styles.buttonSelected}>EVENTS</Text>
+                    <Icon name="event" color="#2196F3" size={24}/>
+                    <Text style={styles.buttonSelected}>Events</Text>
                 </View>
 
                 <View style={styles.navView}>
                     <TouchableOpacity onPress={()=> {
                         gotoRoute("courses", this.props.navigator)}}>
-                        <Text style={styles.button}>COURSES</Text>
+                        <Icon name="library-books" size={24}/>
+                        <Text style={styles.button}>Courses</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-            {displayDashboard}
+
       </View>
     );
   }
@@ -170,35 +168,23 @@ export default class Dashboard extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#fdfdfd",
     flexDirection: 'column',
-  },
-  logo: {
-      height: 20,
-      width: 108,
-      position: 'absolute',
-      bottom: 0
   },
   cards: {
     flex:1,
-    marginTop: 12,
+    marginTop: 60,
     flexDirection: 'column'
-  },
-  cardTitle: {
-    color: "#fff",
-    fontSize:24
   },
   navView: {
       flex: 1,
-      opacity: 0.6,
+      opacity: 0.7,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
   },
   navViewSelected: {
       flex: 1,
       opacity: 1,
-      borderBottomColor: '#fff',
-      borderBottomWidth: 2,
       alignItems: 'center',
       justifyContent: 'center',
   },
@@ -207,8 +193,8 @@ const styles = StyleSheet.create({
       textAlignVertical: 'center',
       textAlign: 'center',
       fontFamily: 'Roboto',
-      fontSize: 14,
-      color: '#fff'
+      fontSize: 12,
+      color: '#757575'
   },
   buttonSelected: {
       flex: 1,
@@ -216,38 +202,15 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontFamily: 'Roboto',
       fontSize: 14,
-      color: '#fff'
+      color: '#2196F3'
   },
   navbar:{
-    height: 48,
+    height: 56,
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-around',
-    backgroundColor: "#2196F3",
-    elevation: 2,
-  },
-  toolbar:{
-    height: 24,
-    backgroundColor: "#2196F3",
-    elevation: 2,
-  },
-  actionButtons: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    justifyContent: 'center'
-  },
-  welcome: {
-    fontSize: 48,
-    textAlign: 'center',
-    margin: 10,
-    marginTop: 100,
-    marginBottom:50
-  },
-  textInput: {
-    fontSize:18,
-    width:200,
-    alignSelf: 'center',
-    textAlign: 'center'
+    backgroundColor: "#fdfdfd",
+    elevation: 8,
   },
   feedbackForm:{
     fontSize:14,
@@ -268,13 +231,6 @@ const styles = StyleSheet.create({
     marginTop:100,
     marginBottom:50,
     alignSelf: 'center',
-    textAlign: 'center'
-  },
-  mobileSiteMessage: {
-    // fontSize:14,
-    // marginTop:20,
-    color: '#2196F3',
-    // alignSelf: 'center',
     textAlign: 'center'
   }
 });
