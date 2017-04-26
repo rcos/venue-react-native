@@ -43,7 +43,6 @@ export default class Signin extends Component{
   whenNavigationStateChanges(navState: any){
     var navigator = this.props.navigator;
     if (navState.url  != this.state.casURL){
-        console.log(navState.url);
         if (!navState.url.includes("https://cas-auth.rpi.edu/cas/login")){
             Promise.resolve(this.setState({attemptingAuth: true})).then(()=>{
                 fetch(this.state.casURL, {
@@ -52,25 +51,21 @@ export default class Signin extends Component{
                   return response.json();
                 }).then((json) => {
                   //this.setState({attemptingAuth: true});
-                  console.log(json);
                   if (json['token']){
                       console.log("token");
                       venue.authenticateWithToken(json['token']).then(() => {
-                            console.log("resetting to dash");
                             navigator.resetTo({title: "dashboard"});
                       });
                     }
                     else{
-                        console.log("else");
                         if (!navState.url.includes(venue.getDomain())){
                             this.setState({attemptingAuth: false});
                         }
                     }
                 }).catch((err,arg2) => {
-                    console.log("catch");
-                    // if (!navState.url.includes(venue.getDomain())){
-                    //     this.setState({attemptingAuth: false});
-                    // }
+                    if (!navState.url.includes(venue.getDomain())){
+                        this.setState({attemptingAuth: false});
+                    }
                   // Ignore all the errors- they come from bad URLS during the
                   // navigation state change
                 });

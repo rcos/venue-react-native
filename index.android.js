@@ -44,7 +44,6 @@ class venueReactNative extends Component {
 
   renderScene(route, navigator){
     var Comp = routes[route.title].component;
-    console.log(route.info);
     return <Comp {...route.info} navigator={navigator}/>;
   }
 
