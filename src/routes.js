@@ -21,10 +21,6 @@ export default {
     title: "details",
     component: Details
   },
-  attend: {
-    title: "attend",
-    component: Attend
-  },
   upload: {
     title: "upload",
     component: Upload
